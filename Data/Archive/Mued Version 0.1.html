@@ -1,0 +1,1500 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>Mued</title>
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+		<script>
+			//http://jsfiddle.net/gqzLjd7g/6/
+
+			var product = ''; 
+			var parameter= '';
+			var from = 0;
+			var to = 0;
+			var stepdiscount = 0;
+			var speedupdiscount = 0;
+
+			var improvement = 0;	
+			var stepcostTotal = 0;
+			var speedupTotal = 0;
+			var during = {
+					thisvar: '786chingingu'
+				
+			}
+
+			var appendTableBoolean = true;
+
+			var chingingu = false;
+
+			var resultsscrollparentHeightIncrement = 0;
+			var activeresultsoutputdiv = '';
+			var resultsdivIDCount = 0;
+			var resultsdivTotalCount = 0;
+			var scrollincrementincrease = 1.3;
+
+			var ctrl = false;
+
+			var weapons = {
+				railgun: ['damage', 'impactforce', 'reloadtime', 'rotationspeed', 'penetratingpower'],
+				firebird: ['damage', 'burningtime', 'reloadtime', 'rotationspeed', 'range'],
+				freeze: ['damage', 'reloadtime', 'rotationspeed', 'range'],
+				isida: ['damage', 'healing', 'reloadtime', 'rotationspeed', 'selfhealing'],
+				ricochet: ['damage', 'impactforce', 'reloadtime', 'rotationspeed', 'range'],
+				twins: ['damage', 'impactforce', 'range', 'rotationspeed', 'damageatmaxdistance'],
+				smoky: ['damage', 'impactforce', 'criticaldamage', 'rotationspeed', 'criticalchance'],
+				thunder: ['damage', 'impactforce', 'reloadtime', 'rotationspeed', 'range'],
+				shaft: ['damage', 'impactforce', 'reloadtime', 'rotationspeed', 'snipingdamage'],
+				hammer: ['damage', 'impactforce', 'reloadtime', 'rotationspeed', 'range'],
+				vulcan: ['damage', 'impactforce', 'range', 'rotationspeed', 'timebeforeoverheating'],
+				wasp: ['protection', 'maximumspeed', 'turningspeed', 'weight', 'power'],
+				hornet: ['protection', 'maximumspeed', 'turningspeed', 'weight', 'power'],
+				hunter: ['protection', 'maximumspeed', 'turningspeed', 'weight', 'power'],
+				viking: ['protection', 'maximumspeed', 'turningspeed', 'weight', 'power'],
+				dictator: ['protection', 'maximumspeed', 'turningspeed', 'weight', 'power'],
+				titan: ['protection', 'maximumspeed', 'turningspeed', 'weight', 'power'],
+				mammoth: ['protection', 'maximumspeed', 'turningspeed', 'weight', 'power'],
+				
+			}
+			var resultsvalues = {
+				
+			}
+			var addresults = {
+				selected: []
+			}
+
+			$(document).ready(function(){
+				try{
+					var IE = navigator.userAgent.toLowerCase().indexOf('trident');
+					var Firefox = navigator.userAgent.toLowerCase().indexOf('gecko/20100101 firefox');
+					var Chrome = navigator.userAgent.toLowerCase().indexOf('applewebkit');
+					if(Firefox >  -1){
+						alert('The webpage has not been thoroughly tested in Mozilla Firefox. You may continue, but we strongly recommend switching to Google Chrome or Internet Explorer to provide you the best experience possible.')
+					}else if (IE > -1){
+						alert('The webpage has not been thoroughly tested in Internet Explorer. You may continue, but we strongly recommend switching to Google Chrome to provide you the best experience possible.')
+					}else if((Chrome == -1) /**&& (IE == -1)**/){
+						alert(navigator.userAgent.indexOf('applewebkit'))
+						alert('We have detected that you are accessing this webpage from an unidentified browser. You may continue, but we strongly recommend switching to Google Chrome or Internet Explorer to provide you the best experience possible.')
+					}
+					$('#visas_style_div').remove()
+					$('.ikuruzkrauti').remove()
+					$('.bModal __bPopup1').remove()
+					$('#title').mouseenter(function(){$(this).stop().animate({backgroundColor: 'rgba(246, 255, 237, 0.2)', color: '#005E00'}, 200)});
+					$('#title').mouseleave(function(){$(this).stop().animate({backgroundColor: '#24B300', color: '#F6FFED'}, 200)});
+					clickcolor('.button','#A8ED5C','#68BD0D','#7DC72E');
+					clickcolor('.nav','#29CC00','#0B3800','#1F9C00');
+					scroll('#resultsscrollchild', [0,100], {vertical: 'enabled', adoptcss: true})
+					inputcontroller('#product', 'Railgun');inputcontroller('#parameter', 'Damage');inputcontroller('#from', 11);inputcontroller('#to', 23);inputcontroller('#stepdiscount', 50);inputcontroller('#speedupdiscount', 80);
+					inputcontroller('#userinput', 'Username');inputcontroller('#passinput', 'Password');
+					$('#from').keyup(function(){if (isNaN(parseFloat($(this).val()))){$(this).val('')}})
+					$('#to').keyup(function(){if (isNaN(parseFloat($(this).val()))){$(this).val('')}})
+					$('#stepdiscount').keyup(function(){if (isNaN(parseFloat($(this).val()))){$(this).val('')}})
+					$('#speedupdiscount').keyup(function(){if (isNaN(parseFloat($(this).val()))){$(this).val('')}})
+					$('#maintitleP').click(function(){
+						$('#topcontainerexpand').trigger('click');
+					})
+					//<Input key controls>
+						var ctrl = false
+						$('input').keydown(function(e){
+							switch(e.which){
+								case 17:
+									ctrl = true;
+								break;
+							}
+							if(ctrl){
+								switch(e.which){
+									case 65:
+										$(this).select();
+									break;
+								}
+								$(this).keyup(function(e){ctrl = false})
+							}
+						})
+						$('.logininput').keydown(function(e){
+							switch(e.which){
+								case 13:
+									$('#loginbutton').trigger('click');
+								break;
+							}
+						})
+						$('.input').keydown(function(e){
+							switch(e.which){
+								case 13:
+									$('#calculate').trigger('click');
+								break;
+							}
+						})
+					//...<Input key controls>
+					//<Top Container Info>
+						$('#topcontainerexpand').click(function(){
+							if (($('#topcontainer')).css('display') == 'none'){$('#about').trigger('click');$('#topcontainer').css('display', 'block').stop().animate({height: 250, opacity: 1}, 200);}
+							else{$('#topcontainer').stop().animate({height: 0, opacity: 0}, 200, function(){$('#topcontainer').css('display', 'none')});}
+						})
+						$('#about').click(function(){
+							$('#maininfo').stop().animate({left:105, opacity: 0}, 150, function(){
+								$('#maininfo').empty().append('<p>Mued is designed to help calculate the step-cost, the speed-up cost, and the improvement for micro-upgrades in <a href="http://tankionline.com/" target="_blank">Tanki Online</a>.</p><p style="font-size: 11">Version: 0.1</p><p class="maininfosmallp"><a>&copy LP Productions</a>.</p>')
+								$('#maininfo').animate({left: 5, opacity: 1}, 150)
+							})
+						})	
+						$('#indevelopment').click(function(){
+							$('#maininfo').stop().animate({left:105, opacity: 0}, 150, function(){
+								$('#maininfo').empty().append('<li>Support for M0, M1, and M2 modifications.</li><li>Interactive platform to perform further calculations.</li><!--<li></li>--><h4>Recently completed</h4><li>Scroll support for the results output window</li><p class="maininfosmallp">Notify me for any improvements at <a href="mailto:lavneetpuri@ymail">lavneetpuri@ymail</a> or in the <a target="_blank" href="http://en.tankiforum.com/index.php?showtopic=249843">forum</a>.</p>')
+								$('#maininfo').animate({left: 5, opacity: 1}, 150)
+							})
+						})	
+						$('#contact').click(function(){
+							$('#maininfo').stop().animate({left:105, opacity: 0}, 150, function(){
+								$('#maininfo').empty().append('<p>E-mail address: <a href="mailto:lavneetpuri@ymail">lavneetpuri@ymail</a>.</br><a target="_blank" href="http://en.tankiforum.com/index.php?showuser=465398">Tanki Online Profile</a>.</p><div style="display: table"><object width="468" height="120"><param name="movie" value="http://tankionline.com/tankiref.swf"></param><param name="flashvars" value="hash=bdaa0a4d8&server=tankionline.com" /><embed src="http://tankionline.com/tankiref.swf" type="application/x-shockwave-flash" width="468" height="120" flashvars="hash=bdaa0a4d8&server=tankionline.com"></embed></object></div>')
+								$('#maininfo').animate({left: 5, opacity: 1}, 150)
+							})
+						})			
+						$('#credits').click(function(){
+							$('#maininfo').stop().animate({left:105, opacity: 0}, 150, function(){
+								$('#maininfo').empty().append('<li><a target="_blank" href="http://en.tankiwiki.com/Micro-upgrades">Tankionline.com</a>: For providing the database.</li><li><a target="_blank" href="http://www.000webhost.com/847259.html">000webhost.com</a>: Webpage host.</li>')
+								$('#maininfo').animate({left: 5, opacity: 1}, 150)
+							})
+						})	
+					//...<Top Container Info>
+					//<Calculate Click Function>
+						$('#calculate').click(function(){
+							grabInput();
+							switch (product){
+								case '':
+									alert('Product missing...')
+									highlight('#product', '#BA4027')
+								break;
+								default:
+									switch (parameter){
+										case '':
+											alert(capitalize(product) + "'s Attribute missing...");
+											highlight('#parameter', '#BA4027')
+										break;
+										default:
+											if (window[product+parameter] != undefined){
+												if (from == 0){alert('Range error! Start range cannot be 0');highlight('#from', '#BA4027')}
+												else if(from > (window[product+parameter].length)){alert('Range error! Start range['+from+'] cannot greater than the maximum range['+(window[product+parameter].length)+'].');highlight('#from', '#BA4027')}
+												else{
+														if (to == 0){alert('Range error! End range cannot be 0');highlight('#to', '#b76700');}
+														else if (to < from){alert('Range error! End range['+to+'] cannot be less than Start range['+from+']');highlight('#to', '#BA4027');}
+														else if (to > (window[product+parameter].length)){alert('Range error! Maximum range for '+capitalize(product)+"'s "+capitalize(parameter)+' is '+window[product+parameter].length);highlight('#to', '#BA4027');}
+														else{
+																calculateStepcost(product, parameter, from, to, stepdiscount, speedupdiscount)
+																if (isNaN(stepcostTotal)|| isNaN(speedupTotal)|| isNaN(improvement)){
+																	alert("The data for "+capitalize(product)+"'s "+capitalize(parameter)+" is not up to date. Please check back later or try another search.\n\nSorry for any inconvenience caused.")
+																}else{
+																	resultsdivTotalCount += 1;resultsdivIDCount += 1;
+																	if (($('#resultsoutputcontainer').height()) >= 500){$('#results').css('overflow','hidden').css('height', '605px')}
+																	$('#resultsoutputcontainer').append('<div class="resultsoutput" id="resultsoutput'+resultsdivIDCount+'"><h3>'+$('input[name=product]').val()+': '+$('input[name=parameter]').val()+' '+'['+from+' : '+to+']</h3>'+
+																	'<p>Step Cost: '+parseInt(stepcostTotal)+'<span id="resultsdiscount"> [-'+((parseFloat($('input[name=stepdiscount]').val())).toFixed(1))+'%]</span></p>'+
+																	'<p>Speed-Ups Cost: '+parseInt(speedupTotal)+'<span id="resultsdiscount"> [-'+((parseFloat($('input[name=speedupdiscount]').val())).toFixed(1))+'%]</span></p>'+
+																	'<p>Improvement: '+improvement.toFixed(3)+
+																	'</p></div>');
+																	resultsvalues['#resultsoutput'+resultsdivIDCount] = {}
+																	resultsvalues['#resultsoutput'+resultsdivIDCount]['stepcost'] = stepcostTotal;resultsvalues['#resultsoutput'+resultsdivIDCount]['speedupcost'] = speedupTotal;resultsvalues['#resultsoutput'+resultsdivIDCount]['improvement'] = improvement.toFixed(3);resultsvalues['#resultsoutput'+resultsdivIDCount]['title'] = ($('#resultsoutput'+resultsdivIDCount+' h3').text());
+																	$('.resultsoutput').animate({fontSize: 13}, 100)
+																	$('#results').animate({width: 240}, 100, function(){
+																		$('#resultsscrollparent').animate({height: parseInt($('#results').css('height'))}, 100, function(){
+																			
+																			if (($('#resultsoutputcontainer').height()) < 605){$('#resultsscrollchild').animate({height: '100%'}, 100);
+																			}else{$('#resultsscrollchild').animate({height: 305525/(parseInt($('#resultsoutputcontainer').css('height')))}, 50);scrollincrementincrease = ((parseInt($('#resultsoutputcontainer').css('height')))-605)/((parseInt($('#resultsscrollparent').css('height')))-(parseInt($('#resultsscrollchild').css('height'))));if(isNaN(scrollincrementincrease) || !isFinite(scrollincrementincrease)){scrollincrementincrease = 1.3}}
+																		})	
+																	});
+																	if (appendTableBoolean){appendTable();}
+																}
+														}
+												}
+											}else{calculateStepcost(product, parameter, from, to, stepdiscount, speedupdiscount);}
+									}
+							}
+							improvement = 0;	
+							stepcostTotal = 0;
+							speedupTotal = 0;
+							//removeparagraph('.resultsoutput');
+							$('.resultsoutput').click(function(e){
+								e.preventDefault();
+								e.stopPropagation();
+								switch (ctrl){
+									case /**ctrl**/ false:
+										if /**selected**/ ((addresults['selected'].indexOf(activeresultsoutputdiv)) > -1){
+											if /**selected.LESS.than.1**/(addresults['selected'].length < 2){
+												$(this).stop().animate({fontSize: 0}, 50, function(){$(this).remove();
+													delete resultsvalues[activeresultsoutputdiv]
+													if (addresults['selected'].indexOf(activeresultsoutputdiv) > -1){addresults['selected'].splice((addresults['selected'].indexOf(activeresultsoutputdiv)), 1);}
+													if (($('#resultsoutputcontainer').height()) <= 605){
+														if (resultsdivTotalCount == 1){
+															$('#resultsscrollparent').animate({height: 0}, 50);$('#resultsoutputcontainer').css('margin-top', '0px');
+														}else{$('#results').css('overflow', 'initial');$('#results').css('height', 'auto');$('#resultsscrollparent').animate({height: $('#resultsoutputcontainer').height()}, 50);$('#resultsscrollchild').animate({height: '100%', marginTop: 0}, 50);$('#resultsoutputcontainer').animate({marginTop: 0}, 50);}
+													}else if (($('#resultsoutputcontainer').height()) > 605){
+														$('#resultsscrollchild').animate({height: 305525/(parseInt($('#resultsoutputcontainer').css('height')))}, 50);
+													}
+													resultsdivTotalCount -= 1;activeresultsoutputdiv = '#resultsoutput'+(parseInt(activeresultsoutputdiv.slice(14, activeresultsoutputdiv.length))+1);
+													scrollincrementincrease = ((parseInt($('#resultsoutputcontainer').css('height')))-605)/((parseInt($('#resultsscrollparent').css('height')))-(parseInt($('#resultsscrollchild').css('height'))));
+												})
+											}else /**selected.MORE.than.1**/{
+												var addedStepCost = 0;addedSpeedupCost = 0;var h3title = '';
+												addresults['selected'].splice((addresults['selected'].indexOf(activeresultsoutputdiv)), 1);
+												addresults['selected'].splice(0, 0, activeresultsoutputdiv);
+												for (var i = 1; i < addresults['selected'].length; i++){
+													$(addresults['selected'][i]).attr('class', 'selectedresultsoutput');
+													addedStepCost += resultsvalues[addresults['selected'][i]]['stepcost'];
+													addedSpeedupCost += resultsvalues[addresults['selected'][i]]['speedupcost'];
+													h3title +=  resultsvalues[addresults['selected'][i]]['title'] + ' | ';
+													// /**update resultsvalues**/ delete resultsvalues[addresults['selected'][i]];
+												}
+												addedStepCost += resultsvalues[addresults['selected'][0]]['stepcost'];
+												addedSpeedupCost += resultsvalues[addresults['selected'][0]]['speedupcost'];
+												h3title =  resultsvalues[addresults['selected'][0]]['title'] + ' | ' + h3title;
+												$('.selectedresultsoutput').stop().animate({fontSize: 0}, 50, function(){
+														$('.selectedresultsoutput').remove();
+														$(activeresultsoutputdiv).stop().animate({fontSize: 0}, 50, function(){}
+														);
+														$(activeresultsoutputdiv).empty();
+														$(activeresultsoutputdiv).append('<h3 title="'+h3title+'">'+h3title+'</h3>'+
+														'<p>Step Cost: '+parseInt(addedStepCost)+'</p>'+
+														'<p>Speed-Ups Cost: '+parseInt(addedSpeedupCost)+'</p>');
+														$(activeresultsoutputdiv).stop().animate({fontSize: 13}, 50);
+														resultsvalues[activeresultsoutputdiv]['stepcost'] = addedStepCost;
+														resultsvalues[activeresultsoutputdiv]['speedupcost'] = addedSpeedupCost;
+														resultsvalues[activeresultsoutputdiv]['title'] = h3title;
+														$(activeresultsoutputdiv).css('border-color', 'rgba(2,2,2,0)');
+														$(activeresultsoutputdiv).css('border-radius', '3px');
+														$(activeresultsoutputdiv + ' h3').css('height', '20px');
+														$(activeresultsoutputdiv).css('background-color', 'rgba(200,225,2,0.07)');
+														if (($('#resultsoutputcontainer').height()) <= 605){$('#results').css('overflow', 'initial');$('#results').css('height', 'auto');$('#resultsscrollparent').animate({height: $('#resultsoutputcontainer').height()}, 50);$('#resultsscrollchild').animate({height: '100%', marginTop: 0}, 50);$('#resultsoutputcontainer').animate({marginTop: 0}, 50);
+														}else if (($('#resultsoutputcontainer').height()) > 605){
+															$('#resultsscrollchild').animate({height: 305525/(parseInt($('#resultsoutputcontainer').css('height')))}, 50);
+														}
+														resultsdivTotalCount -= (addresults['selected'].length - 1);
+														scrollincrementincrease = ((parseInt($('#resultsoutputcontainer').css('height')))-605)/((parseInt($('#resultsscrollparent').css('height')))-(parseInt($('#resultsscrollchild').css('height'))));
+														/**empty array**/ addresults['selected'] = [];
+													}
+												);
+											}
+										}else /**not-selected**/{
+											$(this).stop().animate({fontSize: 0}, 50, function(){$(this).remove();
+												delete resultsvalues[activeresultsoutputdiv]
+												if (($('#resultsoutputcontainer').height()) <= 605){
+													if (resultsdivTotalCount == 1){
+														$('#resultsscrollparent').animate({height: 0}, 50);$('#resultsoutputcontainer').css('margin-top', '0px');
+													}else{$('#results').css('overflow', 'initial');$('#results').css('height', 'auto');$('#resultsscrollparent').animate({height: $('#resultsoutputcontainer').height()}, 50);$('#resultsscrollchild').animate({height: '100%', marginTop: 0}, 50);$('#resultsoutputcontainer').animate({marginTop: 0}, 50);}
+												}else if (($('#resultsoutputcontainer').height()) > 605){
+													$('#resultsscrollchild').animate({height: 305525/(parseInt($('#resultsoutputcontainer').css('height')))}, 50);
+												}
+												resultsdivTotalCount -= 1;activeresultsoutputdiv = '#resultsoutput'+(parseInt(activeresultsoutputdiv.slice(14, activeresultsoutputdiv.length))+1);
+												scrollincrementincrease = ((parseInt($('#resultsoutputcontainer').css('height')))-605)/((parseInt($('#resultsscrollparent').css('height')))-(parseInt($('#resultsscrollchild').css('height'))));
+											})
+										}
+									break;
+									case /**ctrl**/ true:
+										if ((addresults['selected'].indexOf(activeresultsoutputdiv)) < 0){
+											addresults['selected'].push(activeresultsoutputdiv)
+											borderHighlight(activeresultsoutputdiv, '#7DC72E');
+										}/**else{
+											addresults['selected'].splice((addresults['selected'].indexOf(activeresultsoutputdiv)), 1);
+											borderHighlight(activeresultsoutputdiv, 'rgba(2,2,2,0)');
+										}**/
+								}
+							})
+							$('.resultsoutput').mouseenter(function(){
+								$(this).stop().animate({opacity: 0.5}, 200);
+								activeresultsoutputdiv = '#'+$(this).attr('id');
+								
+							})
+							$('.resultsoutput').mouseleave(function(){
+								$(this).stop().animate({opacity: 1}, 200)
+								activeresultsoutputdiv = '';
+							})
+						})
+					//...<Calculate Click Function>
+					$('#resultsscrollparent').click(function(){
+						//alert($('#results').css('height'))
+					})
+					//<Drop Down list Functions>
+						$('#selectproduct').change(function(){
+							$('#product').val($('[name="selectproduct"]').val())
+							var changeparameter = function(){
+								switch ($('#selectproduct').val()){
+									case 'Hammer':
+									case 'Ricochet':
+									case 'Thunder':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Impact Force">Impact Force</option>'+
+										'<option value="Reload Time">Reload Time</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Range">Range</option>')
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Freeze':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Range">Range</option>'+
+										'<option value="Reload Time">Reload Time</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>')
+										$('#parameter').val($('[name="selectparameter"]').val())
+										
+									break;
+									case 'Firebird':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Burning Time">Burning Time</option>'+
+										'<option value="Reload Time">Reload Time</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Range">Range</option>')
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Smoky':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Critical Damage">Critical Damage</option>'+
+										'<option value="Impact Force">Impact Force</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Critical Chance">Critical Chance</option>')
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Isida':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Healing">Healing</option>'+
+										'<option value="Reload Time">Reload Time</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Self-Healing">Self-Healing</option>')
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Twins':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Range">Range</option>'+
+										'<option value="Impact Force">Impact Force</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Damage at max-distance">Damage at max-distance</option>')
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Railgun':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Impact Force">Impact Force</option>'+
+										'<option value="Reload Time">Reload Time</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Penetrating Power">Penetrating Power</option>')
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Shaft':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Impact Force">Impact Force</option>'+
+										'<option value="Reload Time">Reload Time</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Sniping Damage">Sniping Damage</option>');
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Vulcan':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Damage">Damage</option>'+
+										'<option value="Impact Force">Impact Force</option>'+
+										'<option value="Time before over-heating">Time before over-heating</option>'+
+										'<option value="Rotation Speed">Rotation Speed</option>'+
+										'<option value="Range">Range</option>');
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+									case 'Wasp':
+									case 'Hornet':
+									case 'Hunter':
+									case 'Viking':
+									case 'Dictator':
+									case 'Titan':
+									case 'Mammoth':
+										$('#selectparameter option').remove();
+										$('#selectparameter').append('<option value="Protection">Protection</option>'+
+										'<option value="Maximum Speed">Maximum Speed</option>'+
+										'<option value="Turning Speed">Turning Speed</option>'+
+										'<option value="Weight">Weight</option>'+
+										'<option value="Power">Power</option>');
+										$('#parameter').val($('[name="selectparameter"]').val())
+									break;
+								}
+							}
+							changeparameter();
+						})
+						$('#selectparameter').change(function(){
+							$('#parameter').val($('[name="selectparameter"]').val())
+						})
+					//...<Drop Down list Functions>
+					//<Edit Database Button Controls>
+						$('#editdatabase').click(function(){
+							$('#updatedatabase').css('display', 'block');
+							$(this).animate({opacity: 0}, 100, function(){$('#updatedatabase').animate({opacity: 1}, 100, function(){$('#editdatabase').css('display', 'none')})})
+							var appendInputTable = function(){
+								$('#database').animate({width: 0}, 200, function(){
+								$('#database tr').remove();
+								$('#database').append('<tr class="databaserows" style="font-weight: bold;text-align: center;"><td id="databasetitle" style="border-radius: 5px;border:1px solid #0a1a0a;" colspan="4" class="databasecolumns"><input name="databasetitleinput" id="databasetitleinput" class="databaseinput" type="text" value="'+$('input[name=product]').val()+': '+$('input[name=parameter]').val()+'"></input></td></tr>'+
+								'<tr class="databaserows" style="text-align: center">'+
+								'<td class="databasecolumns">Index</td>'+
+								'<td class="databasecolumns">Improvement</td>'+
+								'<td class="databasecolumns">Step Cost</td>'+
+								'<td class="databasecolumns">Speed-up Cost</td></tr>')
+								for (var r = from; r < to+1; r++){
+								$('#database').append(
+								'<tr class="databaserows" id="'+r+'">'+
+								'<td class="databasecolumns" id="'+r+'a">'+r+'.</td>'+
+								'<td style="text-align: center" class="databasecolumns" id="'+r+'b"><input type="text"  value="'+(parseFloat(window[product+parameter][r-1][0])).toFixed(3)+'" class="databaseinput" name="'+r+'a"></input></td>'+
+								'<td style="text-align: center" class="databasecolumns" id="'+r+'c"><input type="text" value="'+(parseInt(window[product+parameter][r-1][1])).toFixed(1)+'" class="databaseinput" name="'+r+'b"></input></td>'+
+								'<td style="text-align: center" class="databasecolumns" id="'+r+'d"><input type="text" value="'+(parseInt(window[product+parameter][r-1][2])).toFixed(1)+'" class="databaseinput" name="'+r+'c"></input></td></tr>')
+								}
+								$('#database').animate({width: 800}, 200);
+								})
+								$('#editdatabase').animate({opacity: 1},1000);
+							}
+							appendInputTable();
+						})
+						$('#updatedatabase').click(function(){
+							appendTable()
+							//<Update The arrays>
+							grabInput();
+							for(r = from; r < to+1; r++){
+								window[filter($('[name="databasetitleinput"]').val())][r-1][0] = (parseFloat($('[name="'+r+'a"]').val()));
+								window[filter($('[name="databasetitleinput"]').val())][r-1][1] = (parseInt($('[name="'+r+'b"]').val()));
+								window[filter($('[name="databasetitleinput"]').val())][r-1][2] = (parseInt($('[name="'+r+'c"]').val()));
+							}
+							console.log(numberArray(window[filter($('[name="databasetitleinput"]').val())].join('$'), '$'))
+							//...<Update The arrays>
+							$('#editdatabase').css('display', 'block');
+							$(this).animate({opacity: 0}, 100, function(){$('#editdatabase').animate({opacity: 1}, 100, function(){$('#updatedatabase').css('display', 'none')})})
+						})
+					//...<Edit Database Button Controls>
+					
+					//<Login Controls>
+						$('#passinput').focus(function(){
+							$(this).css('-webkit-text-security', 'disc')
+						})
+						$('#loginexpand').click(function(){
+							if (($('#logincontainer')).css('display') == 'none'){
+								if (chingingu){$('#logincontainer').css('display', 'block').stop().animate({width: 250, height: 180, opacity: 1}, 200)}
+								else{$('#logincontainer').css('display', 'block').stop().animate({width: 250, height: 123, opacity: 1}, 200)}
+							}else{$('#logincontainer').stop().animate({width: 0, height: 30, opacity: 0}, 200, function(){$('#logincontainer').css('display', 'none')})}
+						})
+
+						$('#loginexpand').mouseenter(function(){
+							$(this).stop().animate({opacity: 1}, 300)
+						})
+						$('#loginexpand').mouseleave(function(){
+							$(this).stop().animate({opacity: 0.2}, 300)
+						})
+						$('#loginbutton').click(function(){
+							if (chingingu == false){
+								if (during.hasOwnProperty(($('[name="userinput"]').val()))){
+									if (($('[name="passinput"]').val()) == (during[($('[name="userinput"]').val())])){
+										chingingu = true;
+										alert('Login Sucessfull!');
+										$('.viewcounter img').css('display', 'block')
+										$('#logincontainer').animate({height: 180}, 100, function(){$('.viewcounter').animate({opacity: 1}, 100)})
+									}else{alert('Invalid Password! Try again.')}
+								}else{alert('Invalid Username! Try again.')}
+							}
+						})
+					//...<Login Controls>
+					//<Select..Add results>
+						$('html').keydown(function(e){
+							if (e.which == 17){
+								ctrl = true;
+							}
+						})		
+						$('html').keyup(function(e){
+							ctrl = false;
+						})
+					//...<Select..Add results>
+					//<Scroll Opacity Handler>
+						/**$('#resultsscrollparent').mouseenter(function(){
+							$(this).stop().animate({opacity: 1},100)
+						})			
+						$('#resultsscrollparent').mouseleave(function(){
+							$(this).stop().animate({opacity: 0.2}, 100)
+						})**/
+					//<Scroll Opacity Handler>
+				}catch(e){
+					console.log(e)
+					alert('An unexpected error occured! \n\n'+e+'\n\nMake sure you follow the guidelines. Please report the issue at lavneetpuri@ymail.com ');
+				}
+			})
+
+			var calculateStepcost = function(product, parameter, from, to, stepdiscount, speedupdiscount){
+				switch(weapons.hasOwnProperty(product)){
+					case true:
+						if (weapons[product].indexOf(parameter) > -1){
+							 for (i = from; i < to+1; i++){
+									improvement += window[product+parameter][i-1][0];
+									stepcostTotal += window[product+parameter][i-1][1];
+									speedupTotal += window[product+parameter][i-1][2];
+							}
+							stepcostTotal *= stepdiscount; speedupTotal *= speedupdiscount;
+						}else{alert("Unknown "+capitalize(product)+"'s Attribute...");highlight('#parameter', '#b76700');}
+					break;
+					default:
+						alert('Unkown Product...');
+						highlight('#product', '#b76700');
+				}
+			}
+			var appendTable = function(){
+						$('#database').stop().animate({width: 0}, 200, function(){
+							$('#database tr').remove();
+							$('#database').append('<tr class="databaserows" style="font-weight: bold;text-align: center;"><td style="border-radius: 5px;border:1px solid #0a1a0a;" colspan="4" class="databasecolumns">'+$('input[name=product]').val()+': '+$('input[name=parameter]').val()+'</td></tr>'+
+							'<tr class="databaserows" style="text-align: center">'+
+							'<td class="databasecolumns">Index</td>'+
+							'<td class="databasecolumns">Improvement</td>'+
+							'<td class="databasecolumns">Step Cost</td>'+
+							'<td class="databasecolumns">Speed-up Cost</td></tr>')
+							for (r = from; r < to+1; r++){
+							$('#database').append(
+							'<tr class="databaserows" id="'+r+'">'+
+							'<td class="databasecolumns" id="'+r+'a">'+r+'.</td>'+
+							'<td style="text-align: center" class="databasecolumns" id="'+r+'b">'+(parseFloat(window[product+parameter][r-1][0])).toFixed(3)+'</td>'+
+							'<td style="text-align: center" class="databasecolumns" id="'+r+'c">'+parseInt(window[product+parameter][r-1][1])+'</td>'+
+							'<td style="text-align: center" class="databasecolumns" id="'+r+'d">'+parseInt(window[product+parameter][r-1][2])+'</td></tr>')
+							}
+							$('#database').animate({width: 800}, 200)
+						})
+						if (chingingu){$('#editdatabase').css('display', 'block').stop().animate({opacity: 1},1000)}
+			}
+			var grabInput = function(){
+					if ($('input[name=stepdiscount]').val() == ''){inputcontroller('#stepdiscount', '0')};if ($('input[name=speedupdiscount]').val() == ''){inputcontroller('#speedupdiscount', '0')};
+					if ($('input[name=from]').val() == ''){inputcontroller('#from', '0')};if ($('input[name=to]').val() == ''){inputcontroller('#to', '0')}
+					product = filter(($('input[name=product]').val()));
+					parameter = filter(($('input[name=parameter]').val()));
+					from = parseInt($('input[name=from]').val());
+					to = parseInt($('input[name=to]').val());
+					stepdiscount = (100-(parseFloat($('input[name=stepdiscount]').val())))/100;
+					speedupdiscount = (100-(parseFloat($('input[name=speedupdiscount]').val())))/100;
+			}
+
+
+			//>>>>>>>>>><DATABASE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+			//<Railgun>
+			var railgundamage = [/**1**/[4,682,5482], /**2**/[3,1658,5903], /**3**/[2,2634,6320], /**4**/[2,3609,6741], /**5**/[2,4585,7151], /**6**/[2,5561,7558], /**7**/[1,6537,7961], /**8**/[1,7513,8362], /**9**/[2,8488,8760],
+								/**10**/[1,9464,9164], /**11**/[1,10440,9558], /**12**/[1,11416,9949], /**13**/[1,12391,10339], /**14**/[2,13367,10727], /**15**/[1,14343,11113], /**16**/[1,15319,11505], /**17**/[1,16295,11887],
+								/**18**/[1,17270,12269], /**19**/[1,18246,12648], /**20**/[1,19222,13027], /**21**/[1,20198,13404], /**22**/[1,21174,13787], /**23**/[1,22149,14161]]
+
+			var railgunimpactforce = [/**1**/[18,627,5106], /**2**/[12,1450,5466], /**3**/[8,2273,5823], /**4**/[8,3096,6176], /**5**/[6,3919,6527], /**6**/[6,4742,6876], /**7**/[6,5565,7222], /**8**/[5,6388,7565], /**9**/[5,7211,7907],
+								/**10**/[5,8034,8247], /**11**/[4,8857,8584], /**12**/[5,9679,8920], /**13**/[4,10502,9255], /**14**/[5,11325,9588], /**15**/[5,12148,9919], /**16**/[4,12971,10249], /**17**/[4,13794,10578],
+								/**18**/[4,14617,10905], /**19**/[4,15440,11231], /**20**/[3,16263,11556], /**21**/[4,17086,11880], /**22**/[4,17909,12203], /**23**/[4,18732,12524], /**24**/[3,19555,12845], /**25**/[4,20378,13165]]
+
+
+			var railgunreloadtime = [/**1**/[-0.04,262,2448], /**2**/[-0.03,1176,2893], /**3**/[-0.03,2090,3328], /**4**/[-0.03,3005,3745], /**5**/[-0.02,3919,4163],
+									/**6**/[-0.02,4833,4576], /**7**/[-0.02,5747,4982], /**8**/[-0.02,6662,5376], /**9**/[-0.02,7576,5774], /**10**/[-0.02,8490,6168]]
+
+								
+			var railgunrotationspeed = [/**1**/[2.2,314,2848], /**2**/[1.5,725,3045], /**3**/[1.1,1137,3240], /**4**/[0.9,1548,3433], /**5**/[0.9,1960,3624], /**6**/[0.8,2371,3814], /**7**/[0.7,2783,4002], /**8**/[0.7,3194,4189], /**9**/[0.6,3605,4374],
+								/**10**/[0.7,4017,4559], /**11**/[0.6,4428,4742], /**12**/[0.5,4840,4925], /**13**/[0.6,5251,5098], /**14**/[0.6,5663,5278], /**15**/[0.5,6074,5458], /**16**/[0.5,6486,5637], /**17**/[0.6,6897,5815],
+								/**18**/[0.5,7308,5992], /**19**/[0.5,7720,6168], /**20**/[0.5,8131,6344], /**21**/[0.5,8543,6519], /**22**/[0.5,8954,6694], /**23**/[0.4,9366,6868], /**24**/[0.5,9777,7041], /**25**/[0.5,10188,7214]]
+								
+								
+			var railgunpenetratingpower = [/**1**/[2.9,418,3624], /**2**/[2.0,967,3874], /**3**/[1.5,1515,4129], /**4**/[1.2,2064,4374], /**5**/[1.2,2613,4617], /**6**/[1.0,3161,4867], /**7**/[1.0,3710,5106], /**8**/[0.9,4258,5344], /**9**/[0.9,4807,5580],
+								/**10**/[0.8,5356,5823], /**11**/[0.8,5904,6056], /**12**/[0.8,6453,6288], /**13**/[0.7,7002,6527], /**14**/[0.7,7550,6757], /**15**/[0.8,8099,6986], /**16**/[0.7,8648,7222], /**17**/[0.7,9196,7448],
+								/**18**/[0.7,9745,7674], /**19**/[0.6,10293,7899], /**20**/[0.7,10842,8131], /**21**/[0.6,11391,8354], /**22**/[0.7,11939,8577], /**23**/[0.6,12488,8806], /**24**/[0.7,13037,9027], /**25**/[0.6,13585,9247]]
+
+			//...<Railgun>
+			//<Firebird>
+			var firebirddamage = [/**1**/[1,1025,5057],/**2**/[0.7,2363,5425],/**3**/[0.5,3701,5799],/**4**/[0.4,5038,6160],/**5**/[0.4,6376,6527],/**6**/[0.4,7714,6884],/**7**/[0.3,9052,7245],
+								/**8**/[0.4,10390,7596],/**9**/[0.3,11728,7946],/**10**/[0.2,13065,8300],/**11**/[0.3,14403,8646],/**12**/[0.3,15741,8997],/**13**/[0.3,17079,9338],
+								/**14**/[0.2,18417,9686],/**15**/[0.3,19755,10024],/**16**/[0.2,21092,10361],/**17**/[0.3,22430,10704],/**18**/[0.2,23768,11039],/**19**/[0.3,25106,11379],/**20**/[0.2,26444,11711],
+								/**21**/[0.2,27782,12049],/**22**/[0.2,29119,12378],/**23**/[0.3,30457,12707],/**24**/[0.2,31795,13041]]
+
+			var firebirdburningtime = [[1.8,1367,6464],[1.4,6495,7829],[1.1,11624,9164],[1.1,16752,10481],[1,21880,11770],[0.9,27008,13041],[0.9,32137,14298],[0.9,37265,15548],[0.8,42393,16779]]
+
+			var firebirdreloadtime = [/**1**/[-0.05,257,1589],/**2**/[-0.05,956,1825],/**3**/[-0.03,1655,2046],/**4**/[-0.03,2355,2272],/**5**/[-0.03,3054,2494],/**6**/[-0.02,3753,2713],/**7**/[-0.03,4452,2920],/**8**/[-0.02,5151,3134],
+									 /**9**/[-0.02,5850,3345],/**10**/[-0.03,6550,3546],/**11**/[-0.02,7249,3753],/**12**/[-0.02,7948,3959]]
+								
+			var firebirdrotationspeed = [/**1**/[2,615,3284],/**2**/[1.3,1384,3511],/**3**/[1,2154,3736],/**4**/[0.8,2923,3959],/**5**/[0.8,3692,4180],/**6**/[0.7,4461,4408],/**7**/[0.6,5231,4626],/**8**/[0.6,6000,4842],
+										/**9**/[0.6,6769,5057],/**10**/[0.6,7538,5270],/**11**/[0.5,8308,5482],/**12**/[0.5,9077,5693],/**13**/[0.5,9846,5903],/**14**/[0.5,10615,6112],/**15**/[0.5,11385,6320],/**16**/[0.5,12154,6535],
+										/**17**/[0.4,12923,6741],/**18**/[0.5,13692,6947],/**19**/[0.5,14462,7151],/**20**/[0.4,15231,7355],/**21**/[0.4,16000,7558],/**22**/[0.5,16769,7760],/**23**/[0.4,17539,7961],/**24**/[0.4,18308,8162],/**25**/[0.5,19077,8362]]
+								
+			var firebirdrange = [/**1**/[0.16,410,2346],/**2**/[0.11,1289,2622],/**3**/[0.08,2168,2884],/**4**/[0.08,3047,3152],/**5**/[0.07,3927,3415],/**6**/[0.07,4806,3676],/**7**/[0.06,5685,3925],
+								/**8**/[0.06,6564,4180],/**9**/[0.05,7443,4433],/**10**/[0.06,8322,4684],/**11**/[0.05,9201,4925],/**12**/[0.06,10081,5172],/**13**/[0.05,10960,5417],/**14**/[0.05,11839,5661],
+								/**15**/[0.05,12718,5895]]
+								
+			//...<Firebird>
+
+			//<Freeze>
+			var freezedamage = [/**1**/[1.7,741,7456],/**2**/[1.2,1749,7992],/**3**/[0.9,2757,8515],/**4**/[0.7,3765,9042],/**5**/[0.7,4773,9558],/**6**/[0.6,5782,10077],/**7**/[0.6,6790,10585],/**8**/[0.6,7798,11098],
+								/**9**/[0.5,8806,11608],/**10**/[0.5,9814,12107],/**11**/[0.5,10822,12612],/**12**/[0.4,11830,13107],/**13**/[0.5,12838,13606],/**14**/[0.4,13847,14096],/**15**/[0.4,14855,14592],/**16**/[0.5,15863,15085],
+								/**17**/[0.4,16871,15569],/**18**/[0.4,17879,16059],/**19**/[0.4,18887,16540],/**20**/[0.4,19895,17026],/**21**/[0.4,20903,17503],/**22**/[0.4,21911,17986],/**23**/[0.3,22920,18468],/**24**/[0.4,23928,18941],/**25**/[0.4,24936,19420]]
+
+			var freezerange = [/**1**/[0.16,371,4129],/**2**/[0.1,875,4416],/**3**/[0.08,1379,4701],/**4**/[0.07,1883,4991],/**5**/[0.06,2387,5270],/**6**/[0.06,2891,5547],/**7**/[0.05,3395,5823],/**8**/[0.05,3899,6104],
+								/**9**/[0.05,4403,6376],/**10**/[0.04,4907,6646],/**11**/[0.05,5411,6915],/**12**/[0.04,5915,7190],/**13**/[0.04,6419,7456],/**14**/[0.04,6923,7721],/**15**/[0.04,7427,7984],/**16**/[0.04,7931,8254],
+								/**17**/[0.04,8435,8515],/**18**/[0.03,8939,8776],/**19**/[0.04,9443,9035],/**20**/[0.04,9947,9300],/**21**/[0.03,10451,9558],/**22**/[0.04,10955,9814],/**23**/[0.03,11459,10069],/**24**/[0.04,11963,10331],/**25**/[0.03,12467,10585]]
+
+			var freezereloadtime = [/**1**/[-0.09,244,2902],/**2**/[-0.06,686,3169],/**3**/[-0.05,1128,3433],/**4**/[-0.04,1570,3693],/**5**/[-0.03,2013,3951],/**6**/[-0.04,2455,4206],/**7**/[-0.03,2897,4458],/**8**/[-0.03,3339,4709],/**9**/[-0.03,3781,4958],
+									/**10**/[-0.03,4223,5205],/**11**/[-0.02,4665,5450],/**12**/[-0.03,5107,5693],/**13**/[-0.02,5550,5944],/**14**/[-0.03,5992,6184],/**15**/[-0.02,6434,6424],/**16**/[-0.03,6876,6662],/**17**/[-0.02,7318,6899],/**18**/[-0.03,7760,7135],
+									/**19**/[-0.02,8202,7370]]
+								
+			var freezerotationspeed = [/**1**/[4.3,556,5831],/**2**/[2.8,1312,6240],/**3**/[2.2,2068,6654],/**4**/[1.9,2824,7057],/**5**/[1.7,3580,7456],/**6**/[1.5,4336,7860],/**7**/[1.4,5092,8254],/**8**/[1.3,5848,8653],/**9**/[1.3,6605,9042],/**10**/[1.2,7361,9429],
+									/**11**/[1.2,8117,9821],/**12**/[1.1,8873,10204],/**13**/[1.1,9629,10585],/**14**/[1.1,10385,10972],/**15**/[1.1,11141,11350],/**16**/[1,11897,11726],/**17**/[1,12653,12107],/**18**/[1,13409,12481],/**19**/[1,14165,12860],
+									/**20**/[1,14921,13230],/**21**/[0.9,15677,13599],/**22**/[1,16433,13974],/**23**/[0.9,17189,14341],/**24**/[0.9,17946,14706],/**25**/[1,18702,15078]]
+			//...<Freeze>	
+						
+			//<Thunder>				
+
+			var thunderdamage = [/**1**/[2.4,695,7884],/**2**/[1.6,1658,8446],/**3**/[1.2,2621,9004],/**4**/[1,3584,9558],/**5**/[1,4548,10107],/**6**/[0.8,5511,10652],/**7**/[0.8,6474,11194],/**8**/[0.7,7437,11733],
+								/**9**/[0.7,8400,12269],/**10**/[0.7,9363,12801],/**11**/[0.7,10327,13331],/**12**/[0.6,11290,13859],/**13**/[0.6,12253,14384],/**14**/[0.6,13216,14907],/**15**/[0.6,14179,15427],/**16**/[0.6,15142,15946],
+								/**17**/[0.5,16105,16462],/**18**/[0.6,17069,16977],/**19**/[0.5,18032,17489],/**20**/[0.6,18995,18000],/**21**/[0.5,19958,18510],/**22**/[0.5,20921,19017],/**23**/[0.6,21884,19523],/**24**/[0.5,22847,20028],/**25**/[0.5,23811,20531]]
+
+			var thunderimpactforce = [/**1**/[7,174,2439],/**2**/[5,415,2604],/**3**/[4,656,2767],/**4**/[3,896,2938],/**5**/[3,1137,3098],/**6**/[3,1378,3257],/**7**/[2,1619,3415],/**8**/[3,1859,3572],/**9**/[2,2100,3736],
+									/**10**/[3,2341,3891],/**11**/[2,2582,4044],/**12**/[2,2822,4197],/**13**/[2,3063,4358],/**14**/[1,3304,4509],/**15**/[2,3545,4659],/**16**/[2,3786,4809],/**17**/[2,4026,4958],/**18**/[2,4267,5114],
+									/**19**/[1,4508,5262],/**20**/[2,4749,5409],/**21**/[2,4989,5556],/**22**/[1,5230,5702],/**23**/[2,5471,5855],/**24**/[1,5712,6000],/**25**/[2,5952,6144]]
+
+			var thunderreloadtime = [/**1**/[-0.05,724,8162],/**2**/[-0.05,2913,9429],/**3**/[-0.03,5102,10675],/**4**/[-0.03,7291,11902],/**5**/[-0.03,9480,13114],/**6**/[-0.02,11669,14312],
+									/**7**/[-0.03,13858,15498],/**8**/[-0.02,16047,16674],/**9**/[-0.02,18236,17840],/**10**/[-0.03,20425,18996],/**11**/[-0.02,22614,20152],/**12**/[-0.02,24803,21294]]
+								
+			var thunderrotationspeed = [/**1**/[3.2,174,2439],/**2**/[2.1,415,2604],/**3**/[1.7,656,2767],/**4**/[1.4,896,2938],/**5**/[1.2,1137,3098],/**6**/[1.1,1378,3257],/**7**/[1.1,1619,3415],/**8**/[0.9,1859,3572],
+										/**9**/[1,2100,3736],/**10**/[0.9,2341,3891],/**11**/[0.9,2582,4044],/**12**/[0.8,2822,4197],/**13**/[0.8,3063,4358],/**14**/[0.8,3304,4509],/**15**/[0.8,3545,4659],/**16**/[0.8,3786,4809],
+										/**17**/[0.7,4026,4958],/**18**/[0.8,4267,5114],/**19**/[0.7,4508,5262],/**20**/[0.7,4749,5409],/**21**/[0.7,4989,5556],/**22**/[0.7,5230,5702],/**23**/[0.7,5471,5855],/**24**/[0.7,5712,6000],/**25**/[0.7,5952,6144]]
+								
+			var thunderrange = [/**1**/[1,348,4358],/**2**/[1.2,830,4667],/**3**/[0.9,1311,4966],/**4**/[0.7,1793,5270],/**5**/[0.7,2274,5564],/**6**/[0.6,2756,5863],/**7**/[0.6,3237,6152],/**8**/[0.5,3719,6448],/**9**/[0.5,4200,6733],
+								/**10**/[0.5,4682,7025],/**11**/[0.5,5163,7308],/**12**/[0.5,5645,7596],/**13**/[0.4,6126,7876],/**14**/[0.4,6608,8162],/**15**/[0.5,7089,8439],/**16**/[0.4,7571,8722],/**17**/[0.4,8053,8997],/**18**/[0.4,8534,9278],
+								/**19**/[0.4,9016,9550],/**20**/[0.4,9497,9829],/**21**/[0.4,9979,10099],/**22**/[0.4,10460,10376],/**23**/[0.3,10942,10645],/**24**/[0.4,11423,10920],/**25**/[0.4,11905,11187]]		
+
+			//...<Thunder>
+			//<Hammer>
+			var hammerdamage = [/**1**/[2.9,591,5482],/**2**/[1.9,1381,5871],/**3**/[1.5,2170,6256],/**4**/[1.3,2960,6631],/**5**/[1.1,3749,7010],/**6**/[1,4539,7386],/**7**/[1,5328,7760],/**8**/[0.9,6118,8123],
+								/**9**/[0.8,6907,8492],/**10**/[0.8,7697,8859],/**11**/[0.8,8487,9225],/**12**/[0.8,9276,9580],/**13**/[0.7,10066,9942],/**14**/[0.8,10855,10302],/**15**/[0.7,11645,10660],/**16**/[0.7,12434,11009],
+								/**17**/[0.6,13224,11364],/**18**/[0.7,14013,11718],/**19**/[0.7,14803,12071],/**20**/[0.6,15592,12422],/**21**/[0.7,16382,12765],/**22**/[0.6,17172,13114],/**23**/[0.7,17961,13462],/**24**/[0.6,18751,13808],/**25**/[0.6,19540,14147]]
+
+			var hammerimpactforce = [/**1**/[2,1056,9019],/**2**/[1,6695,11571],/**3**/[1,12335,14060],/**4**/[1,17974,16490],/**5**/[1,23614,18885],/**6**/[1,29253,21239],/**7**/[1,34893,23569]]
+
+			var hammerreloadtime = [/**1**/[-0.03,985,8492],/**2**/[-0.03,3241,9535],/**3**/[-0.02,5497,10555],/**4**/[-0.02,7753,11571],/**5**/[-0.02,10008,12575],/**6**/[-0.02,12264,13563],/**7**/[-0.01,14520,14549],/**8**/[-0.02,16776,15527],
+									/**9**/[-0.01,19032,16490],/**10**/[-0.02,21288,17454],/**11**/[-0.01,23544,18412],/**12**/[-0.01,25799,19357],/**13**/[-0.01,28055,20304],/**14**/[-0.02,30311,21246],/**15**/[-0.01,32567,22176]]
+								
+			var hammerrotationspeed = [/**1**/[2.5,296,3054],/**2**/[1.6,691,3266],/**3**/[1.3,1085,3476],/**4**/[1.1,1480,3684],/**5**/[1,1875,3882],/**6**/[0.8,2270,4087],/**7**/[0.9,2664,4290],/**8**/[0.7,3059,4492],
+									/**9**/[0.8,3454,4692],/**10**/[0.7,3849,4892],/**11**/[0.6,4243,5081],/**12**/[0.7,4638,5278],/**13**/[0.6,5033,5474],/**14**/[0.7,5428,5669],/**15**/[0.6,5822,5863],/**16**/[0.6,6217,6056],
+									/**17**/[0.6,6612,6240],/**18**/[0.5,7006,6432],/**19**/[0.6,7401,6623],/**20**/[0.6,7796,6813],/**21**/[0.5,8191,7002],/**22**/[0.6,8585,7190],/**23**/[0.5,8980,7370],/**24**/[0.6,9375,7558],/**25**/[0.5,9770,7744]]
+								
+			var hammerrange = [/**1**/[0.8,224,2420],/**2**/[0.5,566,2613],/**3**/[0.4,908,2794],/**4**/[0.3,1249,2983],/**5**/[0.3,1591,3169],/**6**/[0.3,1933,3345],/**7**/[0.3,2275,3528],/**8**/[0.2,2616,3710],
+								/**9**/[0.2,2958,3882],/**10**/[0.3,3300,4061],/**11**/[0.2,3642,4239],/**12**/[0.2,3984,4408],/**13**/[0.2,4325,4584],/**14**/[0.2,4667,4759],/**15**/[0.2,5009,4925],/**16**/[0.2,5351,5098],/**17**/[0.2,5693,5270],
+								/**18**/[0.2,6034,5433],/**19**/[0.2,6376,5604],/**20**/[0.1,6718,5774],/**21**/[0.2,7060,5936],/**22**/[0.2,7401,6104]]
+
+			//...<Hammer>
+
+			//...<Isida>
+			var isidadamage = [/**1**/[1.8,522,6152],/**2**/[1.2,1244,6591],/**3**/[0.9,1967,7025],/**4**/[0.8,2689,7448],/**5**/[0.8,3411,7876],/**6**/[0.6,4134,8300],/**7**/[0.6,4856,8722],/**8**/[0.6,5578,9141],/**9**/[0.5,6300,9550],/**10**/[0.5,7023,9964],/**11**/[0.5,7745,10376],/**12**/[0.5,8467,10786],/**13**/[0.5,9190,11194],/**14**/[0.4,9912,11593],/**15**/[0.5,10634,11997],/**16**/[0.4,11357,12400],/**17**/[0.4,12079,12801],/**18**/[0.5,12801,13201],/**19**/[0.4,13523,13592],/**20**/[0.4,14246,13989],/**21**/[0.4,14968,14384],/**22**/[0.4,15690,14778],/**23**/[0.4,16413,15171],/**24**/[0.4,17135,15562],/**25**/[0.4,17857,15946]]
+
+			var isidahealing = [/**1**/[1.8,522,6152],/**2**/[1.2,1244,6591],/**3**/[0.9,1967,7025],/**4**/[0.8,2689,7448],/**5**/[0.8,3411,7876],/**6**/[0.6,4134,8300],/**7**/[0.6,4856,8722],/**8**/[0.6,5578,9141],/**9**/[0.5,6300,9550],/**10**/[0.5,7023,9964],/**11**/[0.5,7745,10376],/**12**/[0.5,8467,10786],/**13**/[0.5,9190,11194],/**14**/[0.4,9912,11593],/**15**/[0.5,10634,11997],/**16**/[0.4,11357,12400],/**17**/[0.4,12079,12801],/**18**/[0.5,12801,13201],/**19**/[0.4,13523,13592],/**20**/[0.4,14246,13989],/**21**/[0.4,14968,14384],/**22**/[0.4,15690,14778],/**23**/[0.4,16413,15171],/**24**/[0.4,17135,15562],/**25**/[0.4,17857,15946]]
+
+			var isidareloadtime = [/**1**/[-0.09,181,2522],/**2**/[-0.06,443,2704],/**3**/[-0.05,704,2884],/**4**/[-0.04,966,3054],/**5**/[-0.03,1228,3231],/**6**/[-0.03,1490,3406],/**7**/[-0.03,1751,3581],/**8**/[-0.03,2013,3753],/**9**/[-0.02,2275,3916],/**10**/[-0.03,2537,4087],/**11**/[-0.02,2798,4256],/**12**/[-0.03,3060,4425],/**13**/[-0.02,3322,4592],/**14**/[-0.02,3583,4759],/**15**/[-0.03,3845,4916],/**16**/[-0.02,4107,5081],/**17**/[-0.03,4369,5246],/**18**/[-0.02,4630,5409],/**19**/[-0.02,4892,5572],/**20**/[-0.02,5154,5726],/**21**/[-0.02,5415,5887],/**22**/[-0.02,5677,6048],/**23**/[-0.02,5939,6209],/**24**/[-0.02,6201,6368]]
+								
+			var isidarotationspeed = [/**1**/[2.7,261,3415],/**2**/[1.7,622,3650],/**3**/[1.4,983,3891],/**4**/[1.2,1344,4121],/**5**/[1,1706,4358],/**6**/[0.9,2067,4584],/**7**/[0.9,2428,4809],/**8**/[0.8,2789,5040],/**9**/[0.8,3150,5262],/**10**/[0.8,3511,5491],/**11**/[0.7,3873,5710],/**12**/[0.7,4234,5928],/**13**/[0.7,4595,6152],/**14**/[0.7,4956,6368],/**15**/[0.6,5317,6591],/**16**/[0.7,5678,6805],/**17**/[0.6,6039,7017],/**18**/[0.6,6401,7237],/**19**/[0.6,6762,7448],/**20**/[0.6,7123,7666],/**21**/[0.6,7484,7876],/**22**/[0.6,7845,8085],/**23**/[0.6,8206,8300],/**24**/[0.6,8567,8508],/**25**/[0.5,8929,8722]]
+								
+			var isidaselfhealing = [/**1**/[0.9,181,2522],/**2**/[0.6,443,2704],/**3**/[0.5,704,2884],/**4**/[0.4,966,3054],/**5**/[0.3,1228,3231],/**6**/[0.3,1490,3406],/**7**/[0.3,1751,3581],/**8**/[0.3,2013,3753],/**9**/[0.2,2275,3916],/**10**/[0.3,2537,4087],/**11**/[0.2,2798,4256],/**12**/[0.3,3060,4425],/**13**/[0.2,3322,4592],/**14**/[0.2,3583,4759],/**15**/[0.3,3845,4916],/**16**/[0.2,4107,5081],/**17**/[0.3,4369,5246],/**18**/[0.2,4630,5409],/**19**/[0.2,4892,5572],/**20**/[0.2,5154,5726],/**21**/[0.2,5415,5887],/**22**/[0.2,5677,6048],/**23**/[0.2,5939,6209],/**24**/[0.2,6201,6368]]
+
+			//...<Isida>
+			//<Twins>
+								
+							
+			var twinsdamage = [/**1**/[0.3,1382,8829],/**2**/[0.2,5275,10204],/**3**/[0.2,9169,11556],/**4**/[0.2,13062,12889],/**5**/[0.1,16955,14204],/**6**/[0.2,20848,15505],/**7**/[0.1,24742,16787],/**8**/[0.1,28635,18063],/**9**/[0.1,32528,19329],/**10**/[0.2,36421,20586],/**11**/[0.1,40315,21834],/**12**/[0.1,44208,23074]]
+
+			var twinsdamageatmaxdistance = [/**1**/[0.9,1229,7977],/**2**/[0.6,5987,9671],/**3**/[0.5,10746,11335],/**4**/[0.5,15504,12961],/**5**/[0.4,20262,14563],/**6**/[0.4,25021,16144],/**7**/[0.4,29779,17714],/**8**/[0.4,34537,19260],/**9**/[0.4,39295,20792]]
+
+			var twinsimpactforce = [/**1**/[4,768,5327],/**2**/[2,2168,5855],/**3**/[2,3567,6384],/**4**/[1,4967,6899],/**5**/[2,6366,7417],/**6**/[1,7766,7922],/**7**/[1,9165,8423],/**8**/[1,10565,8928],/**9**/[1,11964,9422],/**10**/[1,13364,9919],/**11**/[1,14763,10406],/**12**/[1,16163,10890],/**13**/[1,17562,11379],/**14**/[1,18962,11858],/**15**/[1,20361,12342],/**16**/[1,21761,12816],/**17**/[1,23160,13288],/**18**/[1,24560,13765]]
+								
+			var twinsrotationspeed = [/**1**/[1.7,332,2631],/**2**/[1.2,760,2812],/**3**/[0.9,1188,2992],/**4**/[0.7,1617,3169],/**5**/[0.7,2045,3345],/**6**/[0.6,2473,3520],/**7**/[0.6,2901,3693],/**8**/[0.6,3330,3865],/**9**/[0.5,3758,4036],/**10**/[0.5,4186,4206],/**11**/[0.4,4614,4366],/**12**/[0.5,5043,4534],/**13**/[0.4,5471,4701],/**14**/[0.5,5899,4867],/**15**/[0.4,6327,5032],/**16**/[0.4,6756,5196],/**17**/[0.4,7184,5360],/**18**/[0.4,7612,5523],/**19**/[0.4,8040,5685],/**20**/[0.4,8468,5847],/**21**/[0.4,8897,6008],/**22**/[0.4,9325,6168],/**23**/[0.4,9753,6328],/**24**/[0.4,10181,6488],/**25**/[0.3,10610,6646]]
+								
+			var twinsrange = [/**1**/[0.8,461,3459],/**2**/[0.5,1759,3985],/**3**/[0.5,3056,4492],/**4**/[0.4,4354,4999],/**5**/[0.3,5652,5491],/**6**/[0.4,6949,5984],/**7**/[0.3,8247,6464],/**8**/[0.3,9545,6947],/**9**/[0.3,10843,7425],/**10**/[0.3,12140,7891],/**11**/[0.3,13438,8362],/**12**/[0.3,14736,8821]]
+
+			//...<Twins>					
+								
+								
+			//<Ricochet>					
+			var ricochetdamage = [/**1**/[0.7,1538,7159],/**2**/[0.5,5734,8262],/**3**/[0.4,9930,9353],/**4**/[0.3,14125,10421],/**5**/[0.3,18321,11482],/**6**/[0.3,22517,12524],/**7**/[0.3,26713,13556],/**8**/[0.3,30909,14585],/**9**/[0.2,35105,15598],/**10**/[0.3,39300,16603],/**11**/[0.3,43496,17609],/**12**/[0.2,47692,18600]]
+
+			var ricochetimpactforce = [/**1**/[3,879,4442],/**2**/[2,2908,5015],/**3**/[2,4936,5580],/**4**/[2,6965,6128],/**5**/[1,8994,6678],/**6**/[2,11023,7222],/**7**/[1,13051,7760],/**8**/[1,15080,8285],/**9**/[1,17109,8814],/**10**/[2,19138,9338],/**11**/[1,21166,9859],/**12**/[1,23195,10376],/**13**/[1,25224,10883],/**14**/[1,27252,11394]]
+
+			var ricochetreloadtime = [/**1**/[-0.004,769,3968],/**2**/[-0.003,2867,4567],/**3**/[-0.002,4965,5155],/**4**/[-0.002,7063,5734],/**5**/[-0.002,9161,6304],/**6**/[-0.002,11259,6876],/**7**/[-0.002,13356,7433],/**8**/[-0.002,15454,7984],/**9**/[-0.001,17552,8531],/**10**/[-0.002,19650,9073],/**11**/[-0.001,21748,9610],/**12**/[-0.002,23846,10144]]
+								
+			var ricochetrotationspeed = [/**1**/[1.6,492,2722],/**2**/[1.1,1107,2911],/**3**/[0.9,1723,3098],/**4**/[0.7,2338,3284],/**5**/[0.7,2954,3468],/**6**/[0.6,3569,3641],/**7**/[0.5,4184,3822],/**8**/[0.5,4800,4002],/**9**/[0.5,5415,4180],/**10**/[0.5,6031,4358],/**11**/[0.4,6646,4534],/**12**/[0.5,7261,4709],/**13**/[0.4,7877,4883],/**14**/[0.4,8492,5057],/**15**/[0.4,9108,5229],/**16**/[0.4,9723,5393],/**17**/[0.4,10338,5564],/**18**/[0.4,10954,5734],/**19**/[0.4,11569,5903],/**20**/[0.4,12185,6072],/**21**/[0.3,12800,6240],/**22**/[0.4,13415,6408],/**23**/[0.4,14031,6575],/**24**/[0.3,14646,6741],/**25**/[0.4,15262,6907]]
+								
+			var ricochetrange = [/**1**/[0.6,615,3284],/**2**/[0.4,2666,3891],/**3**/[0.4,4718,4475],/**4**/[0.4,6769,5057],/**5**/[0.3,8820,5621],/**6**/[0.3,10872,6184],/**7**/[0.3,12923,6741],/**8**/[0.3,14974,7284],/**9**/[0.2,17026,7829],/**10**/[0.3,19077,8362]]
+								
+			//...<Ricochet>	
+								
+			//<Smoky>						
+			var smokydamage = [/**1**/[0.8,1185,7729],/**2**/[0.6,4009,8745],/**3**/[0.4,6832,9746],/**4**/[0.4,9656,10734],/**5**/[0.4,12480,11711],/**6**/[0.3,15303,12678],/**7**/[0.3,18127,13635],/**8**/[0.3,20950,14585],/**9**/[0.3,23774,15520],/**10**/[0.3,26598,16455],/**11**/[0.3,29421,17384],/**12**/[0.3,32245,18307],/**13**/[0.2,35069,19225],/**14**/[0.3,37892,20138]]
+
+			var smokycriticaldamage = [/**1**/[2.3,332,2631],/**2**/[1.5,760,2812],/**3**/[1.2,1188,2992],/**4**/[1,1617,3169],/**5**/[0.9,2045,3345],/**6**/[0.9,2473,3520],/**7**/[0.7,2901,3693],/**8**/[0.7,3330,3865],/**9**/[0.7,3758,4036],/**10**/[0.7,4186,4206],/**11**/[0.6,4614,4366],/**12**/[0.6,5043,4534],/**13**/[0.6,5471,4701],/**14**/[0.6,5899,4867],/**15**/[0.6,6327,5032],/**16**/[0.5,6756,5196],/**17**/[0.6,7184,5360],/**18**/[0.5,7612,5523],/**19**/[0.5,8040,5685],/**20**/[0.6,8468,5847],/**21**/[0.5,8897,6008],/**22**/[0.5,9325,6168],/**23**/[0.5,9753,6328],/**24**/[0.5,10181,6488],/**25**/[0.5,10610,6646]]
+
+			var smokyimpactforce = [/**1**/[8,443,3345],/**2**/[6,1014,3581],/**3**/[4,1585,3805],/**4**/[3,2156,4036],/**5**/[3,2727,4256],/**6**/[3,3298,4483],/**7**/[3,3869,4709],/**8**/[3,4440,4925],/**9**/[2,5011,5147],/**10**/[2,5582,5368],/**11**/[2,6153,5580],/**12**/[3,6723,5799],/**13**/[2,7294,6008],/**14**/[2,7865,6225],/**15**/[2,8436,6440],/**16**/[2,9007,6646],/**17**/[2,9578,6860],/**18**/[1,10149,7073],/**19**/[2,10720,7276],/**20**/[2,11291,7487],/**21**/[2,11862,7690],/**22**/[2,12433,7899],/**23**/[1,13004,8108],/**24**/[2,13575,8308],/**25**/[2,14146,8515]]
+								
+			var smokyrotationspeed = [/**1**/[1.9,222,1883],/**2**/[1.3,507,2008],/**3**/[1,793,2140],/**4**/[0.8,1078,2262],/**5**/[0.7,1364,2383],/**6**/[0.7,1649,2503],/**7**/[0.6,1935,2631],/**8**/[0.6,2220,2749],/**9**/[0.6,2505,2866],/**10**/[0.5,2791,2983],/**11**/[0.5,3076,3107],/**12**/[0.5,3362,3222],/**13**/[0.5,3647,3336],/**14**/[0.5,3933,3459],/**15**/[0.4,4218,3572],/**16**/[0.5,4504,3684],/**17**/[0.4,4789,3796],/**18**/[0.5,5074,3916],/**19**/[0.4,5360,4027],/**20**/[0.4,5645,4138],/**21**/[0.5,5931,4248],/**22**/[0.4,6216,4366],/**23**/[0.4,6502,4475],/**24**/[0.4,6787,4584],/**25**/[0.4,7072,4692]]
+								
+			var smokycriticalchance = [/**1**/[0.09,264,2169],/**2**/[0.05,672,2346],/**3**/[0.05,1080,2522],/**4**/[0.04,1487,2695],/**5**/[0.03,1895,2866],/**6**/[0.03,2303,3036],/**7**/[0.03,2711,3205],/**8**/[0.03,3119,3372],/**9**/[0.02,3526,3537],/**10**/[0.03,3934,3702],/**11**/[0.02,4342,3865],/**12**/[0.02,4750,4027],/**13**/[0.02,5157,4189],/**14**/[0.02,5565,4349],/**15**/[0.02,5973,4509],/**16**/[0.02,6381,4667],/**17**/[0.02,6789,4825],/**18**/[0.02,7196,4982],/**19**/[0.02,7604,5139],/**20**/[0.02,8012,5295],/**21**/[0.02,8420,5450]]
+								
+			//...<Smoky>						
+								
+			//<Shaft>					
+								
+			var shaftdamage = [/**1**/[1.7,186,2309],/**2**/[1,438,2466],/**3**/[0.9,690,2622],/**4**/[0.7,942,2776],/**5**/[0.6,1194,2929],/**6**/[0.6,1446,3090],/**7**/[0.6,1698,3240],/**8**/[0.5,1950,3389],/**9**/[0.4,2202,3537],/**10**/[0.5,2454,3684],/**11**/[0.4,2706,3831],/**12**/[0.5,2958,3976],/**13**/[0.4,3210,4121],/**14**/[0.4,3462,4273],/**15**/[0.4,3714,4416],/**16**/[0.4,3966,4559],/**17**/[0.4,4217,4701],/**18**/[0.4,4469,4842],/**19**/[0.3,4721,4982],/**20**/[0.4,4973,5122],/**21**/[0.4,5225,5262],/**22**/[0.3,5477,5409],/**23**/[0.4,5729,5547],/**24**/[0.3,5981,5685],/**25**/[0.4,6233,5823]]
+
+			var shaftsnipingdamage = [/**1**/[6.8,649,6654],/**2**/[4.5,1531,7127],/**3**/[3.4,2413,7596],/**4**/[3,3295,8062],/**5**/[2.6,4177,8523],/**6**/[2.4,5059,8981],/**7**/[2.2,5941,9437],/**8**/[2.1,6823,9882],/**9**/[2,7705,10331],/**10**/[2,8587,10779],/**11**/[1.8,9469,11224],/**12**/[1.8,10352,11667],/**13**/[1.7,11234,12107],/**14**/[1.7,12116,12546],/**15**/[1.7,12998,12983],/**16**/[1.6,13880,13418],/**17**/[1.6,14762,13852],/**18**/[1.6,15644,14283],/**19**/[1.6,16526,14714],/**20**/[1.5,17408,15142],/**21**/[1.5,18290,15569],/**22**/[1.5,19172,15988],/**23**/[1.5,20054,16413],/**24**/[1.4,20936,16836],/**25**/[1.5,21818,17258]]
+
+			var shaftreloadtime = [/**1**/[-0.05,772,7729],/**2**/[-0.04,3063,8928],/**3**/[-0.03,5354,10099],/**4**/[-0.02,7645,11261],/**5**/[-0.03,9937,12408],/**6**/[-0.02,12228,13541],/**7**/[-0.03,14519,14656],/**8**/[-0.02,16810,15768],/**9**/[-0.02,19101,16871],/**10**/[-0.02,21392,17958],/**11**/[-0.02,23684,19045],/**12**/[-0.02,25975,20125]]
+								
+			var shaftrotationspeed = [/**1**/[3,278,3240],/**2**/[1.9,656,3468],/**3**/[1.6,1034,3684],/**4**/[1.2,1412,3908],/**5**/[1.2,1790,4129],/**6**/[1,2168,4341],/**7**/[1,2546,4559],/**8**/[0.9,2924,4775],/**9**/[0.9,3302,4982],/**10**/[0.9,3680,5196],/**11**/[0.8,4058,5409],/**12**/[0.7,4436,5621],/**13**/[0.8,4814,5823],/**14**/[0.8,5192,6032],/**15**/[0.7,5570,6240],/**16**/[0.7,5949,6440],/**17**/[0.7,6327,6646],/**18**/[0.7,6705,6852],/**19**/[0.7,7083,7049],/**20**/[0.6,7461,7253],/**21**/[0.7,7839,7456],/**22**/[0.7,8217,7651],/**23**/[0.6,8595,7853],/**24**/[0.7,8973,8054],/**25**/[0.6,9351,8247]]
+								
+			var shaftimpactforce = [/**1**/[9,186,2309],/**2**/[5,438,2466],/**3**/[5,690,2622],/**4**/[4,942,2776],/**5**/[3,1194,2929],/**6**/[3,1446,3090],/**7**/[3,1698,3240],/**8**/[3,1950,3389],/**9**/[2,2202,3537],/**10**/[3,2454,3684],/**11**/[2,2706,3831],/**12**/[3,2958,3976],/**13**/[2,3210,4121],/**14**/[2,3462,4273],/**15**/[2,3714,4416],/**16**/[2,3966,4559],/**17**/[2,4217,4701],/**18**/[2,4469,4842],/**19**/[2,4721,4982],/**20**/[2,4973,5122],/**21**/[2,5225,5262],/**22**/[2,5477,5409],/**23**/[2,5729,5547],/**24**/[2,5981,5685],/**25**/[2,6233,5823]]
+			//...<Shaft>						
+				
+								
+			//<Vulcan>						
+								
+			var vulcandamage = [/**1**/[1.3,934,5466],/**2**/[0.8,2120,5855],/**3**/[0.7,3307,6232],/**4**/[0.5,4493,6615],/**5**/[0.5,5680,6994],/**6**/[0.5,6866,7370],/**7**/[0.4,8053,7736],/**8**/[0.4,9239,8108],/**9**/[0.3,10425,8477],/**10**/[0.4,11612,8844],/**11**/[0.3,12798,9202],/**12**/[0.4,13985,9565],/**13**/[0.3,15171,9927],/**14**/[0.3,16358,10279],/**15**/[0.3,17544,10637],/**16**/[0.3,18731,10994],/**17**/[0.3,19917,11350],/**18**/[0.3,21103,11696],/**19**/[0.3,22290,12049],/**20**/[0.3,23476,12400],/**21**/[0.3,24663,12750],/**22**/[0.3,25849,13092],/**23**/[0.3,27036,13440],/**24**/[0.2,28222,13787],/**25**/[0.3,29408,14125]]
+
+			var vulcanimpactforce = [/**1**/[14,117,977],/**2**/[9,265,1042],/**3**/[7,414,1106],/**4**/[6,562,1170],/**5**/[6,710,1233],/**6**/[5,6858,1295],/**7**/[4,1007,1357],/**8**/[4,1155,1418],/**9**/[5,1303,1469],/**10**/[3,1452,1529],/**11**/[4,1600,1589],/**12**/[4,1748,1649],/**13**/[4,1896,1708],/**14**/[3,2045,1767],/**15**/[3,2193,1825],/**16**/[4,2341,1883],/**17**/[3,2490,1941],/**18**/[3,2638,1998],/**19**/[4,2786,2055],/**20**/[3,2934,2112],/**21**/[3,3083,2169],/**22**/[3,3231,2225],/**23**/[3,3379,2281],/**24**/[3,3528,2328],/**25**/[3,3676,2383]]
+
+			var vulcantimebeforeoverheating = [/**1**/[0.051,701,4282],/**2**/[0.033,1591,4584],/**3**/[0.027,2481,4883],/**4**/[0.022,3370,5172],/**5**/[0.019,4260,5466],/**6**/[0.018,5150,5758],/**7**/[0.017,6040,6048],/**8**/[0.016,6929,6328],/**9**/[0.015,7819,6615],/**10**/[0.014,8709,6899],/**11**/[0.014,9599,7182],/**12**/[0.013,10489,7464],/**13**/[0.013,11378,7736],/**14**/[0.013,12268,8015],/**15**/[0.012,13158,8293],/**16**/[0.013,14048,8569],/**17**/[0.012,14938,8837],/**18**/[0.011,15827,9111],/**19**/[0.012,16717,9384],/**20**/[0.011,17607,9656],/**21**/[0.012,18497,9919],/**22**/[0.011,19386,10189],/**23**/[0.011,20276,10458],/**24**/[0.011,21166,10727],/**25**/[0.011,22056,10994]]
+								
+			var vulcanrotationspeed = [/**1**/[1.4,117,977],/**2**/[1,265,1042],/**3**/[0.7,414,1106],/**4**/[0.7,562,1170],/**5**/[0.5,710,1233],/**6**/[0.5,858,1295],/**7**/[0.5,1007,1357],/**8**/[0.5,1155,1418],/**9**/[0.4,1303,1469],/**10**/[0.4,1452,1529],/**11**/[0.4,1600,1589],/**12**/[0.4,1748,1649],/**13**/[0.3,1896,1708],/**14**/[0.4,2045,1767],/**15**/[0.4,2193,1825],/**16**/[0.3,2341,1883],/**17**/[0.4,2490,1941],/**18**/[0.3,2638,1998],/**19**/[0.3,2786,2055],/**20**/[0.4,2934,2112],/**21**/[0.3,3083,2169],/**22**/[0.3,3231,2225],/**23**/[0.3,3379,2281],/**24**/[0.3,3528,2328],/**25**/[0.4,3676,2383]]
+								
+			var vulcanrange = [/**1**/[2.1,467,3045],/**2**/[1.3,1060,3257],/**3**/[1,1653,3468],/**4**/[0.9,2247,3667],/**5**/[0.8,2840,3874],/**6**/[0.7,3433,4078],/**7**/[0.7,4026,4282],/**8**/[0.6,4620,4483],/**9**/[0.6,5213,4684],/**10**/[0.6,5806,4875],/**11**/[0.6,6399,5073],/**12**/[0.5,6992,5270],/**13**/[0.5,7586,5466],/**14**/[0.5,8179,5661],/**15**/[0.5,8772,5855],/**16**/[0.5,9365,6040],/**17**/[0.5,9958,6232],/**18**/[0.5,10552,6424],/**19**/[0.4,11145,6615],/**20**/[0.5,11738,6805],/**21**/[0.4,12331,6986],/**22**/[0.5,12925,7175],/**23**/[0.4,13518,7362],/**24**/[0.5,14111,7550],/**25**/[0.4,14704,7736]]
+
+			//...<Vulcan>						
+			//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Hulls>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+			//<Wasp>	
+
+			var waspprotection = [/**1**/[3.7,418,3624],/**2**/[2.5,880,3874],/**3**/[1.9,1342,4129],/**4**/[1.7,1805,4374],/**5**/[1.4,2267,4617],/**6**/[1.3,2729,4867],/**7**/[1.3,3191,5106],/**8**/[1.1,3654,5344],/**9**/[1.1,4116,5580],/**10**/[1.1,4578,5823],/**11**/[1,5040,6056],/**12**/[1,5503,6288],/**13**/[1,5965,6527],/**14**/[0.9,6427,6757],/**15**/[0.9,6889,6986],/**16**/[0.9,7352,7222],/**17**/[0.9,7814,7448],/**18**/[0.9,8276,7674],/**19**/[0.8,8738,7899],/**20**/[0.9,9200,8131],/**21**/[0.8,9663,8354],/**22**/[0.9,10125,8577],/**23**/[0.8,10587,8806],/**24**/[0.8,11049,9027],/**25**/[0.8,11512,9247]]
+
+			var waspmaximumspeed = [/**1**/[0.09,627,5106],/**2**/[0.07,1320,5466],/**3**/[0.05,2014,5823],/**4**/[0.04,2707,6176],/**5**/[0.04,3400,6527],/**6**/[0.03,4094,6876],/**7**/[0.04,4787,7222],/**8**/[0.03,5480,7565],/**9**/[0.03,6174,7907],/**10**/[0.02,6867,8247],/**11**/[0.03,7561,8584],/**12**/[0.03,8254,8920],/**13**/[0.02,8947,9255],/**14**/[0.02,9641,9588],/**15**/[0.03,10334,9919],/**16**/[0.02,11027,10249],/**17**/[0.03,11721,10578],/**18**/[0.02,12414,10905],/**19**/[0.02,13107,11231],/**20**/[0.02,13801,11556],/**21**/[0.02,14494,11880],/**22**/[0.03,15187,12203],/**23**/[0.02,15881,12524],/**24**/[0.02,16574,12845],/**25**/[0.02,17267,13165]]
+
+			var waspturningspeed = [/**1**/[2.5,627,5106],/**2**/[1.6,1320,5466],/**3**/[1.3,2014,5823],/**4**/[1,2707,6176],/**5**/[1,3400,6527],/**6**/[0.8,4094,6876],/**7**/[0.9,4787,7222],/**8**/[0.7,5480,7565],/**9**/[0.7,6174,7907],/**10**/[0.7,6867,8247],/**11**/[0.7,7561,8584],/**12**/[0.6,8254,8920],/**13**/[0.7,8947,9255],/**14**/[0.6,9641,9588],/**15**/[0.6,10334,9919],/**16**/[0.6,11027,10249],/**17**/[0.5,11721,10578],/**18**/[0.6,12414,10905],/**19**/[0.6,13107,11231],/**20**/[0.5,13801,11556],/**21**/[0.6,14494,11880],/**22**/[0.5,15187,12203],/**23**/[0.5,15881,12524],/**24**/[0.6,16574,12845],/**25**/[0.5,17267,13165]]
+								
+			var waspweight = [/**1**/[23,209,2036],/**2**/[15,440,2178],/**3**/[11,671,2309],/**4**/[10,902,2448],/**5**/[9,1133,2577],/**6**/[8,1365,2713],/**7**/[8,1596,2848],/**8**/[7,1827,2974],/**9**/[7,2058,3107],/**10**/[6,2289,3231],/**11**/[6,2520,3363],/**12**/[6,2751,3494],/**13**/[6,2982,3615],/**14**/[6,3214,3745],/**15**/[5,3445,3874],/**16**/[6,3676,3993],/**17**/[5,3907,4121],/**18**/[6,4138,4239],/**19**/[5,4369,4366],/**20**/[5,4600,4492],/**21**/[5,4831,4609],/**22**/[5,5062,4734],/**23**/[5,5294,4850],/**24**/[5,5525,4974],/**25**/[5,5756,5098]]
+								
+			var wasppower = [/**1**/[13,209,2036],/**2**/[8,440,2178],/**3**/[6,671,2309],/**4**/[6,902,2448],/**5**/[5,1133,2577],/**6**/[4,1365,2713],/**7**/[4,1596,2848],/**8**/[4,1827,2974],/**9**/[4,2058,3107],/**10**/[3,2289,3231],/**11**/[3,2520,3363],/**12**/[4,2751,3494],/**13**/[3,2982,3615],/**14**/[3,3214,3745],/**15**/[3,3445,3874],/**16**/[3,3676,3993],/**17**/[3,3907,4121],/**18**/[3,4138,4239],/**19**/[3,4369,4366],/**20**/[2,4600,4492],/**21**/[3,4831,4609],/**22**/[3,5062,4734],/**23**/[3,5294,4850],/**24**/[2,5525,4974],/**25**/[3,5756,5098]]
+								
+			//...<Wasp>						
+								
+			//<Hornet>	
+							
+			var hornetprotection = [/**1**/[5.4,371,4129],/**2**/[3.6,796,4416],/**3**/[2.7,1220,4701],/**4**/[2.4,1645,4991],/**5**/[2.1,2070,5270],/**6**/[1.9,2494,5547],/**7**/[1.7,2919,5823],/**8**/[1.7,3344,6104],/**9**/[1.6,3768,6376],/**10**/[1.5,4193,6646],/**11**/[1.5,4618,6915],/**12**/[1.4,5043,7190],/**13**/[1.4,5467,7456],/**14**/[1.3,5892,7721],/**15**/[1.3,6317,7984],/**16**/[1.3,6741,8254],/**17**/[1.3,7166,8515],/**18**/[1.3,7591,8776],/**19**/[1.2,8015,9035],/**20**/[1.2,8440,9300],/**21**/[1.2,8865,9558],/**22**/[1.2,9289,9814],/**23**/[1.2,9714,10069],/**24**/[1.1,10139,10331],/**25**/[1.2,10563,10585]]
+
+			var hornetmaximumspeed = [/**1**/[0.12,556,5831],/**2**/[0.08,1193,6240],/**3**/[0.06,1830,6654],/**4**/[0.05,2467,7057],/**5**/[0.05,3104,7456],/**6**/[0.04,3741,7860],/**7**/[0.04,4378,8254],/**8**/[0.04,5015,8653],/**9**/[0.03,5653,9042],/**10**/[0.04,6290,9429],/**11**/[0.03,6927,9821],/**12**/[0.03,7564,10204],/**13**/[0.03,8201,10585],/**14**/[0.03,8838,10972],/**15**/[0.03,9475,11350],/**16**/[0.03,10112,11726],/**17**/[0.03,10749,12107],/**18**/[0.02,11386,12481],/**19**/[0.03,12023,12860],/**20**/[0.03,12660,13230],/**21**/[0.03,13297,13599],/**22**/[0.02,13934,13974],/**23**/[0.03,14571,14341],/**24**/[0.02,15209,14706],/**25**/[0.03,15846,15078]]
+
+			var hornetturningspeed = [/**1**/[2.4,278,3240],/**2**/[1.6,597,3468],/**3**/[1.2,915,3684],/**4**/[1,1234,3908],/**5**/[1,1552,4129],/**6**/[0.8,1871,4341],/**7**/[0.8,2189,4559],/**8**/[0.7,2508,4775],/**9**/[0.7,2826,4982],/**10**/[0.7,3145,5196],/**11**/[0.7,3463,5409],/**12**/[0.6,3782,5621],/**13**/[0.6,4100,5823],/**14**/[0.6,4419,6032],/**15**/[0.6,4737,6240],/**16**/[0.6,5056,6440],/**17**/[0.5,5375,6646],/**18**/[0.6,5693,6852],/**19**/[0.5,6012,7049],/**20**/[0.6,6330,7253],/**21**/[0.5,6649,7456],/**22**/[0.5,6967,7651],/**23**/[0.6,7286,7853],/**24**/[0.5,7604,8054],/**25**/[0.5,7923,8247]]
+								
+			var hornetweight = [/**1**/[40,278,3240],/**2**/[27,597,3468],/**3**/[20,915,3684],/**4**/[18,1234,3908],/**5**/[15,1552,4129],/**6**/[14,1871,4341],/**7**/[13,2189,4559],/**8**/[13,2508,4775],/**9**/[11,2826,4982],/**10**/[12,3145,5196],/**11**/[10,3463,5409],/**12**/[11,3782,5621],/**13**/[10,4100,5823],/**14**/[10,4419,6032],/**15**/[10,4737,6240],/**16**/[10,5056,6440],/**17**/[9,5375,6646],/**18**/[9,5693,6852],/**19**/[9,6012,7049],/**20**/[9,6330,7253],/**21**/[9,6649,7456],/**22**/[9,6967,7651],/**23**/[9,7286,7853],/**24**/[8,7604,8054],/**25**/[9,7923,8247]]
+								
+			var hornetpower = [/**1**/[22,371,4129],/**2**/[14,796,4416],/**3**/[12,1220,4701],/**4**/[9,1645,4991],/**5**/[9,2070,5270],/**6**/[8,2494,5547],/**7**/[7,2919,5823],/**8**/[7,3344,6104],/**9**/[6,3768,6376],/**10**/[6,4193,6646],/**11**/[6,4618,6915],/**12**/[6,5043,7190],/**13**/[6,5467,7456],/**14**/[5,5892,7721],/**15**/[5,6317,7984],/**16**/[6,6741,8254],/**17**/[5,7166,8515],/**18**/[5,7591,8776],/**19**/[5,8015,9035],/**20**/[5,8440,9300],/**21**/[5,8865,9558],/**22**/[5,9289,9814],/**23**/[5,9714,10069],/**24**/[4,10139,10331],/**25**/[5,10563,10585]]
+								
+			//<Hornet>						
+								
+			//<Hunter>						
+			var hunterprotection = [/**1**/[4.3,584,3676],/**2**/[2.9,1209,3933],/**3**/[2.2,1833,4189],/**4**/[1.9,2458,4433],/**5**/[1.6,3082,4684],/**6**/[1.6,3707,4933],/**7**/[1.4,4331,5180],/**8**/[1.3,4956,5417],/**9**/[1.3,5580,5661],/**10**/[1.2,6205,5903],/**11**/[1.2,6829,6144],/**12**/[1.1,7454,6376],/**13**/[1.1,8078,6615],/**14**/[1.1,8703,6852],/**15**/[1.1,9327,7088],/**16**/[1,9952,7316],/**17**/[1,10576,7550],/**18**/[1,11201,7783],/**19**/[1,11825,8015],/**20**/[1,12450,8239],/**21**/[0.9,13074,8469],/**22**/[1,13699,8699],/**23**/[0.9,14323,8928],/**24**/[1,14948,9149],/**25**/[0.9,15572,9376]]
+
+			var huntermaximumspeed = [/**1**/[0.08,556,3520],/**2**/[0.06,1270,3814],/**3**/[0.04,1983,4104],/**4**/[0.04,2697,4391],/**5**/[0.03,3411,4676],/**6**/[0.03,4125,4958],/**7**/[0.03,4838,5246],/**8**/[0.02,5552,5523],/**9**/[0.03,6266,5799],/**10**/[0.02,6980,6072],/**11**/[0.03,7693,6344],/**12**/[0.02,8407,6615],/**13**/[0.02,9121,6884],/**14**/[0.03,9835,7151],/**15**/[0.02,10548,7417],/**16**/[0.02,11262,7682],/**17**/[0.02,11976,7953],/**18**/[0.02,12689,8216],/**19**/[0.02,13403,8477],/**20**/[0.02,14117,8737],/**21**/[0.02,14831,8997]]
+
+			var hunterturningspeed = [/**1**/[1.6,584,3676],/**2**/[1,1209,3933],/**3**/[0.9,1833,4189],/**4**/[0.6,2458,4433],/**5**/[0.7,3082,4684],/**6**/[0.5,3707,4933],/**7**/[0.5,4331,5180],/**8**/[0.5,4956,5417],/**9**/[0.5,5580,5661],/**10**/[0.4,6205,5903],/**11**/[0.4,6829,6144],/**12**/[0.5,7454,6376],/**13**/[0.4,8078,6615],/**14**/[0.4,8703,6852],/**15**/[0.3,9327,7088],/**16**/[0.4,9952,7316],/**17**/[0.4,10576,7550],/**18**/[0.4,11201,7783],/**19**/[0.3,11825,8015],/**20**/[0.4,12450,8239],/**21**/[0.3,13074,8469],/**22**/[0.4,13699,8699],/**23**/[0.3,14323,8928],/**24**/[0.4,14948,9149],/**25**/[0.3,15572,9376]]
+								
+			var hunterweight = [/**1**/[33,351,2393],/**2**/[22,726,2558],/**3**/[17,1100,2722],/**4**/[14,1475,2884],/**5**/[13,1850,3045],/**6**/[12,2224,3196],/**7**/[11,2599,3354],/**8**/[10,2974,3511],/**9**/[10,3348,3667],/**10**/[9,3723,3822],/**11**/[9,4098,3976],/**12**/[9,4472,4129],/**13**/[8,4847,4282],/**14**/[8,5221,4433],/**15**/[8,5596,4576],/**16**/[8,5971,4726],/**17**/[8,6345,4875],/**18**/[8,6720,5024],/**19**/[7,7095,5172],/**20**/[8,7469,5319],/**21**/[7,7844,5466],/**22**/[8,8219,5612],/**23**/[7,8593,5758],/**24**/[7,8968,5895],/**25**/[7,9343,6040]]
+								
+			var hunterpower = [/**1**/[13,351,2393],/**2**/[8,726,2558],/**3**/[7,1100,2722],/**4**/[5,1475,2884],/**5**/[5,1850,3045],/**6**/[5,2224,3196],/**7**/[4,2599,3354],/**8**/[4,2974,3511],/**9**/[3,3348,3667],/**10**/[4,3723,3822],/**11**/[3,4098,3976],/**12**/[4,4472,4129],/**13**/[3,4847,4282],/**14**/[3,5221,4433],/**15**/[3,5596,4576],/**16**/[3,5971,4726],/**17**/[3,6345,4875],/**18**/[3,6720,5024],/**19**/[3,7095,5172],/**20**/[3,7469,5319],/**21**/[3,7844,5466],/**22**/[3,8219,5612],/**23**/[3,8593,5758],/**24**/[3,8968,5895],/**25**/[3,9343,6040]]
+			//...<Hunter>						
+								
+			//<Viking>						
+			var vikingprotection = [/**1**/[7.1,591,5482],/**2**/[4.7,1256,5871],/**3**/[3.6,1922,6256],/**4**/[3.1,2587,6631],/**5**/[2.7,3252,7010],/**6**/[2.5,3918,7386],/**7**/[2.4,4583,7760],/**8**/[2.1,5248,8123],/**9**/[2.1,5914,8492],/**10**/[2,6579,8859],/**11**/[2,7245,9225],/**12**/[1.8,7910,9580],/**13**/[1.8,8575,9942],/**14**/[1.8,9241,10302],/**15**/[1.7,9906,10660],/**16**/[1.7,10571,11009],/**17**/[1.7,11237,11364],/**18**/[1.6,11902,11718],/**19**/[1.7,12567,12071],/**20**/[1.6,13233,12422],/**21**/[1.5,13898,12765],/**22**/[1.6,14563,13114],/**23**/[1.6,15229,13462],/**24**/[1.5,15894,13808],/**25**/[1.5,16559,14147]]
+
+			var vikingmaximumspeed = [/**1**/[0.1,394,3882],/**2**/[0.06,838,4155],/**3**/[0.04,1281,4425],/**4**/[0.04,1725,4692],/**5**/[0.04,2168,4949],/**6**/[0.03,2612,5213],/**7**/[0.03,3055,5474],/**8**/[0.03,3499,5734],/**9**/[0.02,3943,5992],/**10**/[0.03,4386,6248],/**11**/[0.02,4830,6504],/**12**/[0.03,5273,6757],/**13**/[0.02,5717,7002],/**14**/[0.02,6160,7253],/**15**/[0.03,6604,7503],/**16**/[0.02,7048,7752],/**17**/[0.02,7491,8000],/**18**/[0.02,7935,8247],/**19**/[0.02,8378,8492],/**20**/[0.02,8822,8737],/**21**/[0.02,9265,8974],/**22**/[0.02,9709,9217],/**23**/[0.02,10152,9459],/**24**/[0.02,10596,9701],/**25**/[0.02,11040,9942]]
+
+			var vikingturningspeed = [/**1**/[1.8,197,2178],/**2**/[1.2,419,2328],/**3**/[0.9,641,2476],/**4**/[0.8,862,2622],/**5**/[0.7,1084,2767],/**6**/[0.7,1306,2902],/**7**/[0.6,1528,3045],/**8**/[0.5,1749,3187],/**9**/[0.6,1971,3328],/**10**/[0.5,2193,3468],/**11**/[0.5,2415,3607],/**12**/[0.4,2637,3745],/**13**/[0.5,2858,3882],/**14**/[0.5,3080,4019],/**15**/[0.4,3302,4155],/**16**/[0.4,3524,4282],/**17**/[0.5,3746,4416],/**18**/[0.4,3967,4550],/**19**/[0.4,4189,4684],/**20**/[0.4,4411,4817],/**21**/[0.4,4633,4949],/**22**/[0.4,4854,5081],/**23**/[0.4,5076,5213],/**24**/[0.4,5298,5344],/**25**/[0.4,5520,5466]]
+								
+			var vikingweight = [/**1**/[42,394,3882],/**2**/[28,838,4155],/**3**/[23,1281,4425],/**4**/[19,1725,4692],/**5**/[16,2168,4949],/**6**/[16,2612,5213],/**7**/[14,3055,5474],/**8**/[14,3499,5734],/**9**/[12,3943,5992],/**10**/[13,4386,6248],/**11**/[12,4830,6504],/**12**/[11,5273,6757],/**13**/[11,5717,7002],/**14**/[11,6160,7253],/**15**/[11,6604,7503],/**16**/[10,7048,7752],/**17**/[10,7491,8000],/**18**/[11,7935,8247],/**19**/[10,8378,8492],/**20**/[9,8822,8737],/**21**/[10,9265,8974],/**22**/[10,9709,9217],/**23**/[9,10152,9459],/**24**/[10,10596,9701],/**25**/[9,11040,9942]]
+								
+			var vikingpower = [/**1**/[26,394,3882],/**2**/[16,838,4155],/**3**/[13,1281,4425],/**4**/[11,1725,4692],/**5**/[10,2168,4949],/**6**/[9,2612,5213],/**7**/[9,3055,5474],/**8**/[7,3499,5734],/**9**/[8,3943,5992],/**10**/[7,4386,6248],/**11**/[7,4830,6504],/**12**/[7,5273,6757],/**13**/[6,5717,7002],/**14**/[6,6160,7253],/**15**/[7,6604,7503],/**16**/[6,7048,7752],/**17**/[6,7491,8000],/**18**/[6,7935,8247],/**19**/[5,8378,8492],/**20**/[6,8822,8737],/**21**/[6,9265,8974],/**22**/[6,9709,9217],/**23**/[5,10152,9459],/**24**/[6,10596,9701],/**25**/[5,11040,9942]]
+			//...<Viking>	
+
+								
+			//<Dictator>					
+			var dictatorprotection = [/**1**/[4,647,2866],/**2**/[2.7,1318,3063],/**3**/[2,1989,3266],/**4**/[1.8,2660,3459],/**5**/[1.5,3331,3650],/**6**/[1.4,4002,3839],/**7**/[1.3,4673,4036],/**8**/[1.3,5343,4223],/**9**/[1.1,6014,4408],/**10**/[1.2,6685,4592],/**11**/[1,7356,4784],/**12**/[1.1,8027,4966],/**13**/[1,8698,5147],/**14**/[1,9369,5327],/**15**/[1,10040,5515],/**16**/[1,10711,5693],/**17**/[0.9,11382,5871],/**18**/[0.9,12053,6048],/**19**/[0.9,12724,6232],/**20**/[0.9,13394,6408],/**21**/[0.9,14065,6583],/**22**/[0.9,14736,6757],/**23**/[0.9,15407,6939],/**24**/[0.8,16078,7112],/**25**/[0.9,16749,7284]]
+
+			var dictatormaximumspeed = [/**1**/[0.05,1177,4751],/**2**/[0.03,4105,5547],/**3**/[0.03,7032,6328],/**4**/[0.03,9960,7096],/**5**/[0.02,12887,7853],/**6**/[0.03,15815,8600],/**7**/[0.02,18742,9338],/**8**/[0.02,21670,10069],/**9**/[0.02,24597,10794],/**10**/[0.02,27525,11512],/**11**/[0.02,30452,12225]]
+
+			var dictatorturningspeed = [/**1**/[0.8,647,2866],/**2**/[0.5,1318,3063],/**3**/[0.5,1989,3266],/**4**/[0.3,2660,3459],/**5**/[0.3,3331,3650],/**6**/[0.3,4002,3839],/**7**/[0.3,4673,4036],/**8**/[0.2,5343,4223],/**9**/[0.3,6014,4408],/**10**/[0.2,6685,4592],/**11**/[0.2,7356,4784],/**12**/[0.2,8027,4966],/**13**/[0.3,8698,5147],/**14**/[0.2,9369,5327],/**15**/[0.2,10040,5515],/**16**/[0.2,10711,5693],/**17**/[0.1,11382,5871],/**18**/[0.2,12053,6048],/**19**/[0.2,12724,6232],/**20**/[0.2,13394,6408],/**21**/[0.2,14065,6583],/**22**/[0.2,14736,6757],/**23**/[0.1,15407,6939],/**24**/[0.2,16078,7112],/**25**/[0.2,16749,7284]]
+								
+			var dictatorweight = [/**1**/[23,259,1347],/**2**/[16,527,1439],/**3**/[12,796,1529],/**4**/[10,1064,1619],/**5**/[9,1332,1708],/**6**/[9,1601,1786],/**7**/[8,1869,1873],/**8**/[7,2137,1960],/**9**/[7,2406,2046],/**10**/[6,2674,2131],/**11**/[7,2943,2216],/**12**/[6,3211,2300],/**13**/[6,3479,2383],/**14**/[6,3748,2457],/**15**/[6,4016,2540],/**16**/[5,4284,2622],/**17**/[6,4553,2704],/**18**/[5,4821,2785],/**19**/[6,5089,2866],/**20**/[5,5358,2947],/**21**/[5,5626,3027],/**22**/[6,5894,3107],/**23**/[5,6163,3178],/**24**/[5,6431,3257],/**25**/[5,6699,3336]]
+								
+			var dictatorpower = [/**1**/[11,518,2383],/**2**/[7,1055,2549],/**3**/[5,1591,2713],/**4**/[5,2128,2866],/**5**/[4,2665,3027],/**6**/[4,3202,3187],/**7**/[4,3738,3345],/**8**/[3,4275,3494],/**9**/[3,4812,3650],/**10**/[3,5348,3805],/**11**/[3,5885,3959],/**12**/[3,6422,4104],/**13**/[3,6958,4256],/**14**/[3,7495,4408],/**15**/[2,8032,4559],/**16**/[3,8569,4709],/**17**/[3,9105,4850],/**18**/[2,9642,4999],/**19**/[3,10179,5147],/**20**/[2,10715,5295],/**21**/[3,11252,5433],/**22**/[2,11789,5580],/**23**/[2,12325,5726],/**24**/[3,12862,5871],/**25**/[2,13399,6008]]
+			//...<Dictator>					
+								
+								
+			//<Titan>
+			var titanprotection = [/**1**/[6.5,817,4883],/**2**/[4.2,1691,5229],/**3**/[3.4,2566,5564],/**4**/[2.8,3440,5903],/**5**/[2.5,4314,6240],/**6**/[2.3,5189,6575],/**7**/[2.1,6063,6899],/**8**/[2,6937,7229],/**9**/[1.9,7812,7558],/**10**/[1.8,8686,7876],/**11**/[1.8,9560,8200],/**12**/[1.7,10435,8523],/**13**/[1.7,11309,8844],/**14**/[1.6,12184,9156],/**15**/[1.6,13058,9474],/**16**/[1.5,13932,9791],/**17**/[1.6,14807,10099],/**18**/[1.5,15681,10414],/**19**/[1.5,16555,10727],/**20**/[1.4,17430,11031],/**21**/[1.5,18304,11342],/**22**/[1.4,19178,11652],/**23**/[1.4,20053,11961],/**24**/[1.4,20927,12261],/**25**/[1.4,21801,12568]]
+
+			var titanmaximumspeed = [/**1**/[0.06,183,1398],/**2**/[0.04,495,1549],/**3**/[0.03,807,1698],/**4**/[0.03,1120,1844],/**5**/[0.03,1432,1989],/**6**/[0.02,1744,2131],/**7**/[0.02,2056,2262],/**8**/[0.03,2368,2402],/**9**/[0.02,2680,2540],/**10**/[0.02,2993,2677],/**11**/[0.02,3305,2812],/**12**/[0.02,3617,2947],/**13**/[0.01,3929,3081],/**14**/[0.02,4241,3213],/**15**/[0.02,4554,3345],/**16**/[0.02,4866,3476]]
+
+			var titanturningspeed = [/**1**/[0.9,234,1718],/**2**/[0.7,484,1835],/**3**/[0.5,734,1950],/**4**/[0.4,983,2065],/**5**/[0.4,1233,2169],/**6**/[0.3,1483,2281],/**7**/[0.3,1733,2393],/**8**/[0.3,1982,2503],/**9**/[0.3,2232,2613],/**10**/[0.3,2482,2722],/**11**/[0.2,2732,2830],/**12**/[0.3,2981,2938],/**13**/[0.2,3231,3036],/**14**/[0.3,3481,3143],/**15**/[0.2,3731,3249],/**16**/[0.3,3981,3354],/**17**/[0.2,4230,3459],/**18**/[0.2,4480,3563],/**19**/[0.2,4730,3667],/**20**/[0.2,4980,3771],/**21**/[0.3,5229,3865],/**22**/[0.2,5479,3968],/**23**/[0.2,5729,4070],/**24**/[0.2,5979,4172],/**25**/[0.2,6228,4273]]
+								
+			var titanweight = [/**1**/[48,467,3045],/**2**/[32,967,3257],/**3**/[25,1466,3468],/**4**/[21,1966,3667],/**5**/[18,2465,3874],/**6**/[17,2965,4078],/**7**/[16,3465,4282],/**8**/[15,3964,4483],/**9**/[14,4464,4684],/**10**/[14,4964,4875],/**11**/[13,5463,5073],/**12**/[13,5963,5270],/**13**/[12,6462,5466],/**14**/[12,6962,5661],/**15**/[12,7462,5855],/**16**/[12,7961,6040],/**17**/[11,8461,6232],/**18**/[11,8960,6424],/**19**/[11,9460,6615],/**20**/[11,9960,6805],/**21**/[11,10459,6986],/**22**/[11,10959,7175],/**23**/[10,11459,7362],/**24**/[11,11958,7550],/**25**/[10,12458,7736]]
+								
+			var titanpower = [/**1**/[16,701,4282],/**2**/[10,1450,4584],/**3**/[8,2200,4883],/**4**/[6,2949,5172],/**5**/[6,3699,5466],/**6**/[6,4448,5758],/**7**/[5,5197,6048],/**8**/[4,5947,6328],/**9**/[5,6696,6615],/**10**/[4,7445,6899],/**11**/[4,8195,7182],/**12**/[4,8944,7464],/**13**/[4,9694,7736],/**14**/[4,10443,8015],/**15**/[4,11192,8293],/**16**/[3,11942,8569],/**17**/[4,12691,8837],/**18**/[3,13441,9111],/**19**/[4,14190,9384],/**20**/[3,14939,9656],/**21**/[4,15689,9919],/**22**/[3,16438,10189],/**23**/[3,17187,10458],/**24**/[4,17937,10727],/**25**/[3,18686,10994]]
+			//...<Titan>				
+								
+								
+			//<Mammoth>
+			var mammothprotection = [/**1**/[5,1165,4709],/**2**/[3.2,2373,5040],/**3**/[2.6,3580,5368],/**4**/[2.2,4788,5693],/**5**/[1.9,5995,6016],/**6**/[1.8,7203,6336],/**7**/[1.6,8411,6654],/**8**/[1.5,9618,6970],/**9**/[1.5,10826,7284],/**10**/[1.4,12034,7596],/**11**/[1.4,13241,7907],/**12**/[1.3,14449,8216],/**13**/[1.3,15656,8523],/**14**/[1.2,16864,8829],/**15**/[1.2,18072,9133],/**16**/[1.2,19279,9437],/**17**/[1.2,20487,9739],/**18**/[1.2,21694,10039],/**19**/[1.1,22902,10339],/**20**/[1.1,24110,10637],/**21**/[1.2,25317,10935],/**22**/[1.1,26525,11231],/**23**/[1.1,27733,11527],/**24**/[1,28940,11821],/**25**/[1.1,30148,12115]]
+
+			var mammothmaximumspeed = [/**1**/[0.04,540,2466],/**2**/[0.04,1760,2830],/**3**/[0.03,2979,3196],/**4**/[0.02,4199,3546],/**5**/[0.02,5419,3891],/**6**/[0.03,6638,4239],/**7**/[0.02,7858,4576],/**8**/[0.02,9078,4916],/**9**/[0.01,10298,5246],/**10**/[0.02,11517,5572],/**11**/[0.02,12737,5903],/**12**/[0.02,13957,6225]]
+
+			var mammothturningspeed = [/**1**/[0.54,130,774],/**2**/[0.36,264,820],/**3**/[0.28,398,877],/**4**/[0.24,532,921],/**5**/[0.21,667,977],/**6**/[0.19,801,1020],/**7**/[0.18,935,1063],/**8**/[0.17,1069,1117],/**9**/[0.16,1203,1159],/**10**/[0.15,1337,1212],/**11**/[0.15,1471,1254],/**12**/[0.14,1605,1295],/**13**/[0.14,1740,1347],/**14**/[0.14,1874,1388],/**15**/[0.13,2008,1439],/**16**/[0.13,2142,1479],/**17**/[0.13,2276,1519],/**18**/[0.13,2410,1569],/**19**/[0.12,2544,1609],/**20**/[0.13,2679,1659],/**21**/[0.12,2813,1698],/**22**/[0.12,2947,1737],/**23**/[0.12,3081,1786],/**24**/[0.11,3215,1825],/**25**/[0.12,3349,1873]]
+								
+			var mammothweight = [/**1**/[36,777,3345],/**2**/[24,1582,3581],/**3**/[19,2387,3805],/**4**/[16,3192,4036],/**5**/[14,3997,4265],/**6**/[12,4802,4483],/**7**/[12,5607,4709],/**8**/[12,6412,4933],/**9**/[10,7217,5147],/**10**/[10,8022,5368],/**11**/[10,8828,5588],/**12**/[10,9633,5799],/**13**/[9,10438,6016],/**14**/[9,11243,6225],/**15**/[9,12048,6440],/**16**/[9,12853,6654],/**17**/[8,13658,6860],/**18**/[9,14463,7073],/**19**/[8,15268,7284],/**20**/[8,16073,7487],/**21**/[8,16878,7698],/**22**/[8,17683,7907],/**23**/[8,18488,8108],/**24**/[8,19293,8316],/**25**/[8,20098,8523]]
+								
+			var mammothpower = [/**1**/[11,259,1347],/**2**/[7,527,1439],/**3**/[5,796,1529],/**4**/[5,1064,1619],/**5**/[4,1332,1708],/**6**/[4,1601,1786],/**7**/[4,1869,1873],/**8**/[3,2137,1960],/**9**/[3,2406,2046],/**10**/[3,2674,2131],/**11**/[3,2943,2216],/**12**/[3,3211,2300],/**13**/[3,3479,2383],/**14**/[3,3748,2457],/**15**/[2,4016,2540],/**16**/[3,4284,2622],/**17**/[3,4553,2704],/**18**/[2,4821,2785],/**19**/[3,5089,2866],/**20**/[2,5358,2947],/**21**/[3,5626,3027],/**22**/[2,5894,3107],/**23**/[2,6163,3178],/**24**/[3,6431,3257],/**25**/[2,6699,3336]]
+			//...<Mammoth>					
+								
+			//UPDATE					
+			//Railgun||Smoky : Impact Force
+
+			//Correct
+			//[Railgun Impactforce: 140 != 138]
+			//[Thunder Range: 13.4 != 14.1]
+			//[Isida Self-healing : 7.2 != 7.1]
+			//[Hunter Power: 104 != 103]
+			//[Viking weight: 351 != 353]
+			//[Mammoth turning speed: 4.10 != 4.39]
+
+			// SPEED UP AND STEP COST VALUES ARE IDENTICAL:
+			//Thunder: Impactforce && Rotation Speed.
+			//Isida:   Healing && Damage.
+			//Shaft: Impactforce && Arcade damage.
+			//...
+			// Wasp turning speed and Rail Impactforce.
+			//Hornet: Turning Speed and Weight, Protection and Power.
+			//Hunter: Turning Speed and Protection, weight and power.
+			// Viking: Protection speedup and Hammer Damage speedup, Top speed and weight and power.
+			//Dictator: Turning Speed and protection.
+
+
+			//>>>>>>>>>>..........</DATABASE>..........>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+			//.....................Extra Functions..................................
+			var clickcolor = function(element, enter, down, leave){
+				$(element).mouseenter(function(){
+					$(this).stop().animate({backgroundColor: enter}, 200)
+				})
+				$(element).mousedown(function(){
+					$(this).stop().animate({backgroundColor: down}, 100)
+				})
+				$(element).mouseup(function(){
+					$(this).stop().animate({backgroundColor: enter}, 100)
+				})
+				$(element).mouseleave(function(){
+					$(this).stop().animate({backgroundColor: leave}, 200)
+				})
+			}
+
+			var getcss = function(element, top){
+				return parseInt($(element).css(top));    
+			}
+
+
+
+			var filter = function(string) {
+				string = string.toLowerCase().replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '').replace(/\s/g, '');
+				return string;
+			}
+
+			var capitalize = function(string) {
+				var i = string[0];
+				string = i.toUpperCase() + string.slice(1, (string.length));
+				return string;
+			}
+
+			var inputcontroller = function(element, text){
+				$(element).val(text).css('color', '#c2c2c2')
+				$(element).focus(function(){
+					$(this).val('').css('color', 'black')
+				})
+			}
+
+			var expand = function(element, target, width, height, duration){
+				var expanded = false
+				$(element).click(function(){
+					if (expanded){
+					$(target).animate({width: 0, height: 0,}, duration, function(){$(target).css('display','none')});
+					expanded = false;
+					}		
+					else{
+					$(target).animate({width: width, height: height,}, duration, function(){$(target).css('display','block')});
+					expanded = true;
+					}
+				})
+				
+			}
+			var highlight = function(element, color){
+				var originalcolor = $(element).css('background-color')
+				$(element).animate({backgroundColor: color}, 250, function(){$(element).animate({backgroundColor: originalcolor}, 1700)})
+			}
+			var borderHighlight = function(element, color){
+				$(element).animate({borderTopColor: color, borderLeftColor: color, borderBottomColor: color, borderRightColor: color}, 250)
+			}
+
+			var numberArray = function(str, character) {
+				var count = 1;
+				while (str.indexOf(character) > -1) {
+					count++;
+					str = str.replace(character, '],/**' + parseInt(count) + '**/[');
+				}
+				str = '[/**1**/['+str+']]'
+				return str;
+			}
+
+			var scroll = function(element, bounds, argument){
+				var mdown = false;
+				var mdownInitialX = 0;
+				var mdownInitialY = 0;
+				var elementInitialMarginX = 0;
+				var elementInitialMarginY = 0;
+				var elementMovingMargin = 0;
+				var elementWidth = 0;
+				var elementHeight = 0;
+				var increment
+				if (argument['adoptcss'] == true){
+					$(element).css('position', 'relative')
+				}
+				$(element).mousedown(function(e){
+					e.preventDefault();
+					mdown = true;
+					mdownInitialX = e.pageX;
+					elementInitialMarginX = parseInt($(element).css('margin-left'));
+					mdownInitialY = e.pageY;
+					elementInitialMarginY = parseInt($(element).css('margin-top'));
+					elementWidth = parseInt($(element).css('width'));
+					elementHeight = parseInt($(element).css('height'));
+					//alert(elementInitialMarginY);
+				})
+				$('html').mousemove(function(e){
+					if (mdown){
+						e.preventDefault()
+						if (argument['vertical'] == 'enabled'){
+							bounds[1] = parseInt($(element).parent().css('height')) - parseInt($(element).css('height'));
+							$(element).css('margin-top',elementInitialMarginY +e.pageY - mdownInitialY+'px');
+							elementMovingMargin = parseInt($(element).css('margin-top'))
+							if (((elementMovingMargin) >= 0)&&((elementMovingMargin) <= bounds[1])){
+								increment = (elementMovingMargin);
+								$('#resultsoutputcontainer').css('margin-top', (scrollincrementincrease*(-1*increment))+5)
+							}
+							if (elementMovingMargin < bounds[0]){
+								$(element).css('margin-top', bounds[0]+'px');
+							}else if (elementMovingMargin > bounds[1]){
+									$(element).css('margin-top', bounds[1]+'px');
+							} 
+						}else if (argument['horizontal'] == 'enabled'){
+							bounds[1] = parseInt($(element).parent().css('width')) - parseInt($(element).css('width'));
+							$(element).css('margin-left',elementInitialMarginX +e.pageX - mdownInitialX+'px');
+							elementMovingMargin = parseInt($(element).css('margin-left'));
+							if (((elementMovingMargin) >= 0)&&((elementMovingMargin) <= bounds[1])){
+								var increment = (elementMovingMargin);
+								//Make use of scroll here -- increment
+							}							
+							if (elementMovingMargin < bounds[0]){
+								$(element).css('margin-left', bounds[0]+'px');
+							}else if (elementMovingMargin > bounds[1]){
+									$(element).css('margin-left', bounds[1]+'px');
+							} 
+						}
+					}
+				})
+				$('html').mouseup(function(e){
+					if (mdown){
+						e.preventDefault();
+						mdown = false;
+						$('#resultsoutputcontainer').css('margin-top', (scrollincrementincrease*(-1*increment))+5)
+					}
+				})
+			}
+		</script>
+		<style>
+			div  {
+				cursor: default;
+				-webkit-user-select: none;
+				-moz-user-select: -moz-none;
+			}
+
+			a{
+				text-decoration: none;
+				color: #5c3400;
+			}
+			a:active{
+				color: #3b2100;
+			}
+			a:hover{
+				color: #b76700;
+			}
+
+			#verycenter{
+				display: inline-block;
+				
+				
+			}
+			#title{
+				color: #F6FFED;
+				background-color: #24B300;
+				width: 800px;
+				height: 50px;
+				border-bottom-right-radius: 4px;
+				border-bottom-left-radius: 4px;
+				left: 0;
+				right: 0;
+				margin: 10px auto 0 auto;
+				position: absolute;
+				text-align: center;
+				font-family: sans-serif;
+				font-size: 20px;
+				display: block;
+
+				
+			}
+			#title p{
+				position: relative;
+				top: -12%;
+
+			}
+
+			#inputcontainer{
+				position: absolute; 
+				border: solid 2px #60BA00;
+				display: block;
+				width: 796px;
+				height: 30px;
+				border-radius: 2px;
+			}
+
+
+			.input{
+				width: 100px;
+				height: 24px;
+				display: inline;
+				position: relative;
+				float: left;
+				font-size: 12px;
+			}
+
+			.button{
+				width: 125px;
+				height: 30px;
+				color: white;
+				background-color: #7DC72E;
+				display: inline;
+				position: relative;
+				right: 0;
+				margin: auto;
+				float: right;
+				font-size: 16px;
+				text-align: center;
+				border-radius: 2px;
+				font-family: 'Lucida Console';
+			}
+			#calculate {
+				width: 172px; 	
+				text-align: left;
+				background-image: url("http://i.imgur.com/el9ieuv.png");
+				background-size: 100%;
+			}
+
+			#calculate p{
+				margin-top: 10px;	
+				margin-left: 35px;
+			}
+
+			#editdatabase{
+				opacity: 0;
+				float: right;
+				margin-top: 46px;
+				position: absolute;
+				z-index: 50;
+				font-family: 'Lucida Console';
+				display: none;
+				
+			}
+
+			#editdatabase p{
+				margin-top: 7px;
+			}
+
+			#updatedatabase{
+				opacity: 0;
+				float: right;
+				margin-top: 45px;
+				position: absolute;
+				font-family: 'Lucida Console';
+				display: none;
+			}
+
+			#updatedatabase p{
+				margin-top: 7px;
+			}
+
+			#results{
+				background-color: rgba(115, 225, 0, 0.05);
+				margin: 3px;
+				border-radius: 2px;
+				color: #1f3904;
+				font-family: 'Arial';
+				font-size: 0;
+				padding: 4px;
+				position: absolute;
+				border-radius: 3px;
+				margin: 12px auto;
+				text-align: left;
+				z-index: 0;
+				display: inline-block;
+				overflow: initial;
+				height: auto;
+
+			}
+			#resultsoutputcontainer{
+				margin-top: 0px;
+				height:100%;
+				width: 100%;
+				display: table;
+			}
+			.resultsoutput{
+				word-wrap: break-word;
+				width: 90%;
+				margin: 4px;
+				border: 2px solid rgba(2,2,2,0);
+
+			}
+			.resultsoutput p{
+				margin-left: 10px;
+			}.resultsoutput h3{
+				margin: 4px;
+				margin-left: 10px;
+				overflow: hidden;
+			}
+
+			#resultsdiscount{
+				opacity: 0.5;
+			}
+
+			#resultsscrollparent{
+				width: 10px;
+				height: 0px;
+				position: absolute;
+				background-color: black;
+				border-radius: 5px;
+				right: 0;
+				margin: auto;
+				
+			}
+			#resultsscrollchild{
+				width: 8px;
+				height: 50px;
+				left: -1px;
+				right: auto;
+				border-radius: 10px;
+				position: relative;
+				height: 100%;
+			}
+
+			#selectproduct{
+				width: 104px;
+				height: 25px;
+				position: absolute;
+				display: block;
+			}
+			#selectparameter{
+				width: 102px;
+				height: 25px;
+				left: 107px;
+				position: absolute;
+			}
+
+			#database{
+				background-color: #2f5606;
+				top: 40px;
+				border-radius: 5px;
+				position: relative;
+				font-family: 'Lucida Console';
+				color: #1f3904;
+
+			}
+
+			.databasecolumns{
+				background-color: #69bf0d;
+				width: 100px;
+				height: 20px;
+				border-radius: 3px;
+				
+			}
+			#databasetitleinput{
+				width: 700px;
+				text-align: center;
+				background-color: #69bf0d;
+				outline: none;
+				border-color: (2,2,2,0);
+				
+			}
+
+			#centercontainer{
+				background-color: rgba(22,33,44,0);
+				width: 800px;
+				left: 0;
+				right: 0;
+				margin: 110px auto;
+				position: absolute;
+				display: inline-block;
+			}
+
+			.databaseinput{
+				width: 225px;
+				height: 15px;
+				background-color: #85DE00;
+				color: #1f3904;
+				outline-color: #2f5606;
+				border-color: rgba(23,23,4,0);
+			}
+
+			#info{
+				width: 416px;
+				height: 25px;
+				left: 210px;
+				position: absolute;
+				background-color: rgba(23,23,23,0);
+			}
+			.info{
+				width: 103px;
+				height: 25px;
+				position: absolute;
+				border-radius: 2px;
+				background-color: red;
+				font-size: 11px;
+				font-family: 'verdana';
+				text-align: center;
+				background-color: rgba(36, 179, 0, 0.5);
+				color: #182E00;
+			}
+			#infofrom{
+				float: left;
+			}
+			#infofrom p{
+				margin-top: 5px;
+			}
+			#infoto{
+				left: 104px;
+			}
+			#infoto p{
+				margin-top: 5px;
+			}
+			#infostepdiscount{
+				left: 208px;
+			}
+			#infostepdiscount p{
+				margin-top: -1.5px;
+			}
+			#infospeedupdiscount{
+				left: 312px;
+			}
+			#infospeedupdiscount p{
+				margin-top: -1.5px;
+			}
+
+			#logincontainer{
+				background-color: rgba(36, 179, 0, 0.7);
+				opacity: 0;
+				width: 0;
+				border-radius: 5px;
+				float: right;
+				position: relative;
+				display: none;
+			}
+
+			#loginexpand{
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				z-index: 50;
+				display: inline-block;
+				border-radius: 100%;
+				margin-right: 9px;
+			}
+
+			.logininput{
+				width: 228px;
+				height: 20px;
+				display: block;
+				margin-top: 12px;
+				margin-left: 10px;
+				border-radius: 3px;
+				border: 2px solid #1B8700; 
+				outline: none;
+				padding-left: 2px;
+			}
+			#loginbutton{
+				border-radius: 3px;
+				width: 100px;
+				float: right;
+				height: 27px;
+				margin-top: 10px;
+				margin-right: 7px;
+				border: 1px solid #1B8700;
+				
+			}
+			#loginbutton p{
+				margin-top: 4px;
+			}
+
+			.viewcounter{
+				top: 120px;
+				right: 7px;
+				margin: auto;
+				position: absolute;
+				opacity: 0;
+				
+			}
+			#viewcounterall{
+				margin-top: 30px;
+			}
+			.viewcounter img{
+				border: 2px solid #0A3300;
+				border-radius: 6px;
+				display: none;
+			}
+
+			#topcontainerexpand{
+				width: 800px;
+				height: 10px;
+				border-top-left-radius: 2px;
+				border-top-right-radius: 2px;	
+				border-bottom-left-radius: 0px;
+				border-bottom-right-radius: 0px;
+				position: absolute;
+				margin: auto;
+				right: 0; 
+				left: 0;
+				z-index: 0;
+			}
+
+			#topcontainer{
+				width: 800px;
+				background-color: rgba(125,242, 0, 0.5);
+				left: 0;
+				right: 0;
+				border-radius: 5px;
+				margin: 0 auto 0 auto;
+				display: none;
+				background: url('http://i.imgur.com/NJaAsj2.jpg');
+				background-size: 100%;
+			}
+			.nav{
+				padding-left: 5px;
+				padding-right: 5px;
+				height: 30px;
+				display: inline-block;
+				background-color: #1F9C00;
+				margin-top: 15px;
+				text-align: center;
+				left: 5px;
+				color: white;
+				border-radius: 4px;
+				position: relative;
+				font-family: 'verdana';
+				margin-bottom: 10px;
+				
+			}
+
+			.nav p{
+				margin-top: 5px;
+			}
+			#maininfo{
+				width: 700px;
+				padding-left: 5px;
+				padding-right: 5px;
+				display: block;
+				position: relative;
+				left: 5px;
+				border-radius: 3px;	
+				font-family: 'verdana';
+			}
+
+			#maininfo p{
+				margin-top: 0;
+			}
+
+			.maininfosmallp{
+				font-size: 12px;
+				top: 150px;
+				position: absolute;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id='loginexpand' class='button'><img style='max-height: 100%; max-width: 100%;' src='http://goo.gl/tZ1DHP'/></div>
+		<div id='logincontainer'>
+			<input type='text' class='logininput' id='userinput' name='userinput'></input>
+			<input type='text' class='logininput' id='passinput' name='passinput'></input>
+			<div class='button' id='loginbutton'><p>Login</p></div>
+			<div class="viewcounter" id='viewcounteruni' style=' display: block'><a href="http://www.hitwebcounter.com/" target="_blank"><img src="http://hitwebcounter.com/counter/counter.php?page=6010242&style=0038&nbdigits=9&type=ip&initCount=0" border="0" ></a></div>
+			<!--<div class="viewcounter" id='viewcounterall' style=' display: block'><a href="http://www.hitwebcounter.com/" target="_blank"><img src="http://hitwebcounter.com/counter/counter.php?page=6012564&style=0038&nbdigits=9&type=page&initCount=0" border="0" ></a><br/></div>-->
+		</div>
+		<div id='topcontainerexpand' class='button'></div>
+		<div id='topcontainer'>
+			<div id='about' class='nav'><p>About</p></div>
+			<div id='indevelopment' class='nav'><p>In Development</p></div>
+			<div id='contact' class='nav'><p>Contact</p></div>
+			<div id='credits' class='nav'><p>Credits</p></div>
+			<div id='maininfo'>
+				
+			</div>
+		</div>
+		<div id='title'><p id="maintitleP"><strong>Tanki Online Micro-Upgrades Calculator</strong></p>
+			<div id='inputcontainer'>
+				<input class='input' id='product' name='product' title='Enter the product name.'></input>
+				<input class='input' id='parameter' name='parameter' title="Enter the product's attribute."></input>
+				<input class='input' id='from' name='from' title='Enter the initial step number.'></input>
+				<input class='input' id='to' name='to' title='Enter the final step number'></input>
+				<input class='input' id='stepdiscount' name='stepdiscount' title='Enter the discount on Micro-upgrades'></input>
+				<input class='input' id='speedupdiscount' name='speedupdiscount' title='Enter the discount on Speed-ups'></input>
+				<div class='button' id='calculate'><p>Calculate</p></div>
+			</div>
+		</div>
+		<div id='centercontainer'>
+			<select name='selectproduct' id='selectproduct'>
+				<option value='Railgun'>Railgun</option>
+				<option value='Firebird'>Firebird</option>
+				<option value='Freeze'>Freeze</option>
+				<option value='Isida'>Isida</option>
+				<option value='Ricochet'>Ricochet</option>
+				<option value='Twins'>Twins</option>
+				<option value='Smoky'>Smoky</option>
+				<option value='Thunder'>Thunder</option>
+				<option value='Shaft'>Shaft</option>
+				<option value='Hammer'>Hammer</option>
+				<option value='Vulcan'>Vulcan</option>
+				<option value='Wasp'>Wasp</option>
+				<option value='Hornet'>Hornet</option>
+				<option value='Hunter'>Hunter</option>
+				<option value='Viking'>Viking</option>
+				<option value='Dictator'>Dictator</option>
+				<option value='Titan'>Titan</option>
+				<option value='Mammoth'>Mammoth</option>
+			</select>
+			<select id='selectparameter' name='selectparameter'>
+				<option value="Damage">Damage</option>
+				<option value="Impact Force">Impact Force</option>
+				<option value="Reload Time">Reload Time</option>
+				<option value="Rotation Speed">Rotation Speed</option>
+				<option value="Penetrating Power">Penetrating Power</option>
+			</select>
+			<div id="info"><div id="infofrom" class="info" title="Refers to the step you are currently at."><p>Start range</p></div><div id="infoto" class="info" title="Refers to the final step you wish to micro-upgrade your equipment upto."><p>End range</p></div><div id="infostepdiscount" class="info" title="Discount on Micro-Upgrades"><p>Step-cost discount</p></div><div id="infospeedupdiscount" class="info" title="Discount on Speed-ups."><p>Speed-up cost discount</p></div></div>
+			<table id="database"></table>
+			<div class='button' id='editdatabase'><p>Edit</p></div>
+			<div class='button' id='updatedatabase'><p>Update</p></div>
+		</div>
+		<div id='results'>
+			<div id="resultsscrollparent">
+				<div id="resultsscrollchild" class="button"></div>
+			</div>
+			<div id="resultsoutputcontainer"></div>
+		</div>
+		<!--<div id='webhost'><a style='text-decoration: none' href="http://www.000webhost.com/" onClick="this.href='http://www.000webhost.com/847259.html'" target="_blank"><img src="http://www.000webhost.com/images/banners/160x600/banner1.gif" alt="Web hosting" style="max-height: 100%; max-width: 100%;border-radius: 10px;" border="0" /></a></div>-->
+	</body>
+</html>

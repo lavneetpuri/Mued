@@ -1,0 +1,63 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <title>Mued</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="Mued.js"></script>
+    <link type="text/css" rel="stylesheet" href="Mued.css"/>
+  </head>
+  <body>
+<!--<div id="greeter">
+      <h1>Welcome to Mued</h1>
+    </div> -->
+    <div id='results'>
+      <div id="resultsscrollparent">
+        <div id="resultsscrollchild" class="button"></div>
+      </div>
+      <div id="resultsoutputcontainer"></div>
+    </div>
+    <div id='loginexpand' class='button'><img style='max-height: 100%; max-width: 100%;' src='http://goo.gl/tZ1DHP'/></div>
+    <div id='logincontainer'>
+      <input type='text' class='logininput' id='userinput' name='userinput'></input>
+      <input type='text' class='logininput' id='passinput' name='passinput'></input>
+      <div class='button' id='loginbutton'><p>Login</p></div>
+      <div class="viewcounter" id='viewcounteruni' style=' display: block'><a href="http://www.hitwebcounter.com/" target="_blank"><img src="http://hitwebcounter.com/counter/counter.php?page=6048425&style=0038&nbdigits=9&type=ip&initCount=0" border="0" ></a></div>
+      <div class="viewcounter" id='viewcounterall' style=' display: block'><a href="http://www.hitwebcounter.com/" target="_blank"><img src="http://hitwebcounter.com/counter/counter.php?page=6048429&style=0038&nbdigits=9&type=page&initCount=0" border="0" ></a></div>
+    </div>
+    <div id='topcontainerexpand' class=''></div>
+    <div id='topcontainer'>
+      <div id='about' class='nav'><p>About</p></div>
+      <div id='indevelopment' class='nav'><p>In Development</p></div>
+      <div id='contact' class='nav'><p>Contact</p></div>
+      <div id='credits' class='nav'><p>Credits</p></div>
+      <div id='help' class='nav'><p>Help</p></div>
+      <div id='maininfo'>
+      </div>
+    </div>
+    <div id='title'><p id="maintitleP"><strong>Tanki Online Micro-Upgrades Calculator</strong></p>
+      <div id='inputcontainer'>
+        <input class='input' id='product' name='product' title='Enter the product name.'></input>
+        <input class='input' id='parameter' name='parameter' title="Enter the product's attribute."></input>
+        <input class='input' id='from' name='from' title='Enter the initial step number.'></input>
+        <input class='input' id='to' name='to' title='Enter the final step number'></input>
+        <input class='input' id='stepdiscount' name='stepdiscount' title='Enter the discount on Micro-upgrades'></input>
+        <input class='input' id='speedupdiscount' name='speedupdiscount' title='Enter the discount on Speed-ups'></input>
+        <div class='button' id='calculate'><p>Calculate</p></div>
+      </div>
+    </div>
+    <div id='centercontainer'>
+      <ul>
+        <select name='selectproduct' id='selectproduct'></select>
+        <select id='selectparameter' name='selectparameter'></select>
+        <div class='boolean' id='paints'><p>Paints</p></div>
+        <div class="switch" id='M3'>M3</div>
+        <div class='boolean' id='databaseboolean'><p>Show Database</p></div>
+      </ul>
+      <table id="database"></table>
+      <div class='button' id='editdatabase'><p>Edit</p></div>
+      <div class='button' id='updatedatabase'><p>Update</p></div>
+    </div>
+    <!--<div id='webhost'><a style='text-decoration: none' href="http://www.000webhost.com/" onClick="this.href='http://www.000webhost.com/847259.html'" target="_blank"><img src="http://www.000webhost.com/images/banners/160x600/banner1.gif" alt="Web hosting" style="max-height: 100%; max-width: 100%;border-radius: 10px;" border="0" /></a></div>-->
+  </body>
+</html>
