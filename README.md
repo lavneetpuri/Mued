@@ -1,6 +1,6 @@
 ## Overview
 Budget calculator for sales planning in [Tanki Online](http://tankionline.com/).
-The application is live at http://lavneet.gitlab.io/Mued/
+The application is live at https://lavneetpuri.github.io/Mued/
 
 ## Background
 This was my first publicly released web app developed during school years - while being part of the gaming community at Tanki Online.
